@@ -46,8 +46,9 @@ export default {
 .right-main {
   box-sizing: border-box;
   margin: 1vw;
+  min-height: 84vh;
   height: 84vh;
+  overflow-y: scroll;
   background-color: #fff;
-  font-size: 14px;
 }
 </style>

@@ -14,6 +14,12 @@ import 'assets/css/animate.css'
 // 引入fontawesome
 import 'font-awesome/css/font-awesome.css'
 
+// 插件
+// 图片上传
+import VueImgInputer from 'vue-img-inputer'
+
+Vue.use(VueImgInputer)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

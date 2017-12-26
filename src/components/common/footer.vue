@@ -20,6 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
+  text-align: center;
   height: 6vh;
   color: #999;
   font-size: 12px;

@@ -4,7 +4,8 @@
     <div class="nav">
       <ul class="container">
         <li v-for="(li,index) in leftNav" :key="li.index">
-          <router-link :to="li.link">{{li.title}}</router-link>
+          <router-link :to="li.link">
+            <i class="fa" :class="li.icon"></i>{{li.title}}</router-link>
         </li>
       </ul>
     </div>
@@ -41,18 +42,20 @@ export default {
     li {
       a {
         display: block;
-        padding: 8% 4%;
+        padding: 1vw 1vw;
         color: #fff;
-        font-size: 12px;
+        font-size: 14px;
         &:hover {
           background-color: #495060;
+        }
+        i {
+          margin-right: 0.5vw;
         }
       }
       .router-link-exact-active,
       .router-link-active {
         background-color: #fff;
         color: #1c2438;
-        font-size: 14px;
         &:hover {
           background-color: #fff;
           color: #1c2438;
