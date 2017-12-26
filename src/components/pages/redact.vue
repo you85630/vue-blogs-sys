@@ -1,5 +1,8 @@
 <template>
   <div class="redact">
+    <div class="btn">
+      <button @click="back">返回</button>
+    </div>
     <form action="">
       <label>
         <p>标题：</p>
@@ -47,6 +50,11 @@ export default {
       picValue: '',
       textValue: ''
     }
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -54,6 +62,18 @@ export default {
 <style lang="scss" scoped>
 .redact {
   padding: 2vw;
+  .btn {
+    text-align: right;
+    margin-bottom: 1vw;
+    button {
+      line-height: 1;
+      border: none;
+      background-color: #2d8cf0;
+      color: #fff;
+      font-size: 16px;
+      padding: 0.5vw 1.2vw;
+    }
+  }
 }
 form {
   label {

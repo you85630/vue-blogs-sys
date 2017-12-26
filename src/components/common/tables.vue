@@ -16,7 +16,7 @@
         <dd class="time">{{dl.time}}</dd>
         <dd class="read">{{dl.read}}</dd>
         <dt>
-          <router-link :to="{path:'redact',query:{key:index}}">编辑</router-link>
+          <router-link :to="{path:router,query:{key:index}}">编辑</router-link>
           <button @click='removeList(index)'>删除</button>
         </dt>
       </dl>
@@ -30,12 +30,20 @@ export default {
     'headline',
     'tableData'
   ],
+  data () {
+    return {
+      router: ''
+    }
+  },
   methods: {
     removeList (key) {
       let list = this.tableData
       console.log(list)
       this.tableData.splice(key, 1)
     }
+  },
+  created () {
+    this.router = this.$router.currentRoute.fullPath + '/redact'
   }
 }
 </script>
