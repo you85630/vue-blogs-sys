@@ -23,14 +23,14 @@ export default {
   line-height: 6vh;
   li {
     color: #fff;
-    font-size: 12px;
+    font-size: 0.8vw;
     cursor: pointer;
     a {
       margin: 0 1vw;
       padding: 0 1vw;
       border-right: 2px solid #ccc;
       color: #fff;
-      font-size: 14px;
+      font-size: 0.9vw;
     }
   }
 }

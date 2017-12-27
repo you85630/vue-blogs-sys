@@ -11,7 +11,6 @@ export default {
     addList () {
       let list = this.list
       console.log(list)
-
       let router = this.$router.currentRoute.fullPath + '/redact'
       this.$router.push(router)
     }
@@ -21,16 +20,17 @@ export default {
 
 <style lang="scss" scoped>
 .add-button {
-  font-size: 20px;
-  text-align: right;
   padding-bottom: 1vw;
+  text-align: right;
+  font-size: 20px;
   button {
-    font-size: 14px;
-    line-height: 1;
+    border-radius: 2px;
+    padding: 0.5vw 1.2vw;
     border: none;
     background-color: #2d8cf0;
     color: #fff;
-    padding: 0.5vw 1.2vw;
+    font-size: 14px;
+    line-height: 1;
   }
 }
 </style>

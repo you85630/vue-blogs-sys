@@ -18,7 +18,7 @@
       </label>
       <label>
         <p>封面：</p>
-        <VueImgInputer v-model="picValue" icon="img" size="small"></VueImgInputer>
+        <img-input></img-input>
       </label>
       <label>
         <p>简介：</p>
@@ -26,7 +26,7 @@
       </label>
       <label>
         <p>内容：</p>
-        <mavon-editor v-model="textValue" placeholder="输入……"></mavon-editor>
+        <editor-markdown></editor-markdown>
       </label>
       <label>
         <p></p>
@@ -37,19 +37,12 @@
 </template>
 
 <script>
-import VueImgInputer from 'vue-img-inputer'
-import { mavonEditor } from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+import imgInput from 'components/common/imgInput'
+import editorMarkdown from 'components/common/editorMarkdown'
 export default {
   components: {
-    VueImgInputer,
-    mavonEditor
-  },
-  data () {
-    return {
-      picValue: '',
-      textValue: ''
-    }
+    imgInput,
+    editorMarkdown
   },
   methods: {
     back () {
@@ -66,11 +59,12 @@ export default {
     text-align: right;
     margin-bottom: 1vw;
     button {
+      border-radius: 2px;
       line-height: 1;
       border: none;
       background-color: #2d8cf0;
       color: #fff;
-      font-size: 16px;
+      font-size: 1.2vw;
       padding: 0.5vw 1.2vw;
     }
   }
@@ -78,11 +72,11 @@ export default {
 form {
   label {
     display: block;
-    margin-bottom: 1vw;
+    margin-bottom: 1.2vw;
     display: flex;
     align-items: center;
     p {
-      font-size: 16px;
+      font-size: 1.2vw;
       width: 20%;
     }
     input,
@@ -90,29 +84,21 @@ form {
       border: 1px solid #eee;
       width: 80%;
       box-sizing: border-box;
-      padding: 1%;
-      font-size: 14px;
+      padding: 0.6% 1%;
+      font-size: 1vw;
+      border-radius: 2px;
     }
     textarea {
       height: 6vw;
     }
-    input[type='file'] {
-      border: none;
-    }
     button {
       line-height: 1;
+      border-radius: 2px;
       border: none;
       background-color: #2d8cf0;
       color: #fff;
-      font-size: 16px;
-      padding: 1vw 2vw;
-    }
-    .v-note-wrapper {
-      height: 30vh;
-      width: 80%;
-      font-size: 14px;
-      box-sizing: border-box;
-      position: relative;
+      font-size: 1.2vw;
+      padding: 1vw 3vw;
     }
   }
 }

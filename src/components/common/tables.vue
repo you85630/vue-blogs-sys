@@ -51,6 +51,8 @@ export default {
 <style lang="scss" scoped>
 .tables {
   border: 1px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
   dl {
     dd {
       padding: 1vw;
@@ -70,16 +72,17 @@ export default {
       text-align: center;
       a,
       button {
-        font-size: 12px;
+        font-size: 0.8vw;
         line-height: 1;
         border: none;
         background-color: #2d8cf0;
         color: #fff;
-        padding: 4px 12px;
+        padding: 2% 6%;
         margin: 1vw 0.5vw;
+        border-radius: 2px;
       }
       button {
-        padding: 5px 14px;
+        padding: 3% 6%;
         background-color: #ff9900;
       }
     }
@@ -98,7 +101,7 @@ export default {
   }
 }
 .title {
-  font-size: 16px;
+  font-size: 1.2vw;
   font-weight: bold;
   display: flex;
   background-color: #f9f9f9;
@@ -108,7 +111,7 @@ export default {
 }
 .table-li {
   dl {
-    font-size: 14px;
+    font-size: 1vw;
     display: flex;
     border-top: 1px solid #eee;
     &:nth-child(2n) {

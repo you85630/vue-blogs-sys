@@ -31,7 +31,7 @@ export default {
 .logo {
   height: 10vh;
   color: #fff;
-  font-size: 30px;
+  font-size: 3vw;
   line-height: 10vh;
 }
 .nav {
@@ -42,9 +42,9 @@ export default {
     li {
       a {
         display: block;
-        padding: 1vw 1vw;
+        padding: 1.4vw 1vw;
         color: #fff;
-        font-size: 14px;
+        font-size: 1.2vw;
         &:hover {
           background-color: #495060;
         }

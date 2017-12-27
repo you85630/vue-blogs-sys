@@ -23,10 +23,10 @@ export default {
   text-align: center;
   height: 6vh;
   color: #999;
-  font-size: 12px;
+  font-size: 0.5vw;
   line-height: 6vh;
   span {
-    margin: 0 4px;
+    margin: 0 0.1vw;
   }
 }
 </style>
