@@ -29,13 +29,13 @@ export default {
   text-align: center;
 }
 .logo {
-  height: 10vh;
+  height: 12vh;
   color: #fff;
   font-size: 3vw;
-  line-height: 10vh;
+  line-height: 12vh;
 }
 .nav {
-  height: 90vh;
+  height: 88vh;
   .container {
     overflow-y: scroll;
     height: 81vh;
