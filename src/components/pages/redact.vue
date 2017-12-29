@@ -3,36 +3,37 @@
     <div class="btn">
       <button @click="back">返回</button>
     </div>
-    <form action="">
-      <label>
+    <ul>
+      <li>
         <p>标题：</p>
         <input type="text" name="" id="">
-      </label>
-      <label>
+      </li>
+      <li>
         <p>标签：</p>
         <input type="text" name="" id="">
-      </label>
-      <label>
+      </li>
+      <li>
         <p>发布时间：</p>
         <input type="text" name="" id="">
-      </label>
-      <label>
+      </li>
+      <li>
         <p>封面：</p>
         <img-input></img-input>
-      </label>
-      <label>
+      </li>
+      <li>
         <p>简介：</p>
-        <textarea name=" " id=" "></textarea>
-      </label>
-      <label>
+        <textarea></textarea>
+      </li>
+      <li>
         <p>内容：</p>
-        <editor-markdown></editor-markdown>
-      </label>
-      <label>
+        <editor-markdown :text="markdown"></editor-markdown>
+      </li>
+      <li>
         <p></p>
+        <button class="look">预览</button>
         <button>提交</button>
-      </label>
-    </form>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -40,6 +41,11 @@
 import imgInput from 'components/common/imgInput'
 import editorMarkdown from 'components/common/editorMarkdown'
 export default {
+  data () {
+    return {
+      markdown: ''
+    }
+  },
   components: {
     imgInput,
     editorMarkdown
@@ -56,49 +62,52 @@ export default {
 .redact {
   padding: 2vw;
   .btn {
-    text-align: right;
     margin-bottom: 1vw;
+    text-align: right;
     button {
-      border-radius: 2px;
-      line-height: 1;
+      padding: 0.5vw 1.2vw;
       border: none;
+      border-radius: 2px;
       background-color: #2d8cf0;
       color: #fff;
       font-size: 1.2vw;
-      padding: 0.5vw 1.2vw;
+      line-height: 1;
     }
   }
 }
-form {
-  label {
-    display: block;
-    margin-bottom: 1.2vw;
+ul {
+  li {
     display: flex;
     align-items: center;
+    margin-bottom: 1.2vw;
     p {
-      font-size: 1.2vw;
       width: 20%;
+      font-size: 1.2vw;
     }
     input,
     textarea {
-      border: 1px solid #eee;
-      width: 80%;
       box-sizing: border-box;
       padding: 0.6% 1%;
-      font-size: 1vw;
+      width: 80%;
+      border: 1px solid #eee;
       border-radius: 2px;
+      font-size: 1vw;
     }
     textarea {
       height: 6vw;
     }
     button {
-      line-height: 1;
-      border-radius: 2px;
+      padding: 1vw 3vw;
       border: none;
+      border-radius: 2px;
       background-color: #2d8cf0;
       color: #fff;
       font-size: 1.2vw;
-      padding: 1vw 3vw;
+      line-height: 1;
+    }
+    .look {
+      margin-right: 2vw;
+      background-color: #fc0;
     }
   }
 }
