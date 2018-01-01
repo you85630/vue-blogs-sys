@@ -13,23 +13,26 @@
 
 <script>
 export default {
+  props: ['imgVal'],
   data () {
     return {
-      imgVal: ''
+      imgData: ''
     }
   },
   methods: {
     fileImg () {
-      var oFile = document.querySelector('#pic')
-      for (var i = 0; i < oFile.files.length; i++) {
-        var url = window.URL.createObjectURL(oFile.files[i])
+      let oFile = document.querySelector('#pic')
+      for (let i = 0; i < oFile.files.length; i++) {
+        let url = window.URL.createObjectURL(oFile.files[i])
         // 创建预览图片
-        var img = new Image()
+        let img = new Image()
         img.src = url
         // 插入预览图片
-        this.imgVal = img.src
+        this.imgData = img.src
       }
     }
+  },
+  created () {
   }
 }
 </script>

@@ -18,7 +18,7 @@
       </li>
       <li>
         <p>封面：</p>
-        <img-input></img-input>
+        <img-input :imgVal="imginput"></img-input>
       </li>
       <li>
         <p>简介：</p>
@@ -43,6 +43,7 @@ import editorMarkdown from 'components/common/editorMarkdown'
 export default {
   data () {
     return {
+      imginput: '',
       markdown: ''
     }
   },
