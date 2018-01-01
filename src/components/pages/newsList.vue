@@ -1,18 +1,18 @@
 <template>
   <div class="news-list">
-    <add-button :list="newsList"></add-button>
+    <add-btn :list="newsList"></add-btn>
     <my-tables :headline="newsTitle" :tableData="newsList"></my-tables>
   </div>
 </template>
 
 <script>
 import myTables from 'components/common/tables'
-import addButton from 'components/common/addButton'
+import addBtn from 'components/common/addBtn'
 
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    addButton,
+    addBtn,
     myTables
   },
   computed: {

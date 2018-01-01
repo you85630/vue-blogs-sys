@@ -1,60 +1,60 @@
 <template>
   <div class="redact">
-    <div class="btn">
-      <button @click="back">返回</button>
-    </div>
+    <back-btn></back-btn>
     <ul>
       <li>
         <p>标题：</p>
-        <input type="text" name="" id="">
+        <input type="text" v-model="redact.title">
       </li>
       <li>
         <p>标签：</p>
-        <input type="text" name="" id="">
+        <input type="text" v-model="redact.label">
       </li>
       <li>
         <p>发布时间：</p>
-        <input type="text" name="" id="">
+        <input type="text" v-model="redact.time">
       </li>
       <li>
         <p>封面：</p>
-        <img-input :imgVal="imginput"></img-input>
+        <img-input :imgVal="redact.cover"></img-input>
       </li>
       <li>
         <p>简介：</p>
-        <textarea></textarea>
+        <textarea v-model="redact.message"></textarea>
       </li>
       <li>
         <p>内容：</p>
-        <editor-markdown :text="markdown"></editor-markdown>
+        <editor-markdown :text="redact.info"></editor-markdown>
       </li>
       <li>
         <p></p>
-        <button class="look">预览</button>
-        <button>提交</button>
+        <button class="look" @click="lookNow">预览</button>
+        <button @click="pushList">提交</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
 import editorMarkdown from 'components/common/editorMarkdown'
+
+import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-      imginput: '',
-      markdown: ''
-    }
+  computed: {
+    ...mapGetters([
+      'redact'
+    ])
   },
   components: {
+    backBtn,
     imgInput,
     editorMarkdown
   },
   methods: {
-    back () {
-      this.$router.go(-1)
-    }
+    lookNow () { },
+    pushList () { }
   }
 }
 </script>
@@ -62,19 +62,6 @@ export default {
 <style lang="scss" scoped>
 .redact {
   padding: 2vw;
-  .btn {
-    margin-bottom: 1vw;
-    text-align: right;
-    button {
-      padding: 0.5vw 1.2vw;
-      border: none;
-      border-radius: 2px;
-      background-color: #2d8cf0;
-      color: #fff;
-      font-size: 1.2vw;
-      line-height: 1;
-    }
-  }
 }
 ul {
   li {

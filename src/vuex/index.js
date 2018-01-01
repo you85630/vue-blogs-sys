@@ -76,14 +76,23 @@ export default new Vuex.Store({
         message: '2简介',
         info: '2内容'
       }
-    ]
+    ],
+    redact: {
+      title: '',
+      label: '',
+      time: '',
+      cover: '',
+      message: '',
+      info: ''
+    }
   },
   getters: {
     leftNav: state => state.leftNav,
     blogTitle: state => state.blogTitle,
     blogList: state => state.blogList,
     newsTitle: state => state.newsTitle,
-    newsList: state => state.newsList
+    newsList: state => state.newsList,
+    redact: state => state.redact
   },
   actions: {},
   mutations: {}
