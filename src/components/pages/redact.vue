@@ -16,7 +16,7 @@
       </li>
       <li>
         <p>封面：</p>
-        <img-input :imgVal="redact.cover"></img-input>
+        <img-input :imgVal="redact.cover" @imgInput="addcover"></img-input>
       </li>
       <li>
         <p>简介：</p>
@@ -24,7 +24,7 @@
       </li>
       <li>
         <p>内容：</p>
-        <editor-markdown :text="redact.info"></editor-markdown>
+        <editor-markdown :text="redact.info" @MarkdownDate="addmarkdown"></editor-markdown>
       </li>
       <li>
         <p></p>
@@ -53,7 +53,15 @@ export default {
     editorMarkdown
   },
   methods: {
-    lookNow () { },
+    addcover (data) {
+      this.redact.cover = data
+    },
+    addmarkdown (data) {
+      this.redact.info = data
+    },
+    lookNow () {
+      console.log(this.redact)
+    },
     pushList () { }
   }
 }

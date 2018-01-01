@@ -11,13 +11,22 @@ export default {
   props: ['text'],
   data () {
     return {
-      input: ''
+      input: '',
+      inputVal: ''
     }
   },
   computed: {
     compiledMarkdown: function () {
-      let text = marked(this.input, { sanitize: true })
-      return text
+      this.inputVal = marked(this.input, { sanitize: true })
+      this.$emit('MarkdownDate', this.inputVal)
+      return this.inputVal
+    }
+  },
+  watch: {
+    inputVal: (val) => {
+      if (val) {
+        this.text = val
+      }
     }
   }
 }

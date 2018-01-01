@@ -30,6 +30,7 @@ export default {
         // 插入预览图片
         this.imgVal = this.imgData
         this.imgData = img.src
+        this.$emit('imgInput', this.imgData)
       }
     }
   }
