@@ -41,7 +41,7 @@ export default {
   .text-show {
     padding: 0.6% 1%;
     width: 50%;
-    height: 25vh;
+    height: 28vh;
   }
   textarea {
     box-sizing: border-box;

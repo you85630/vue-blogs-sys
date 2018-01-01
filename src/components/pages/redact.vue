@@ -11,10 +11,6 @@
         <input type="text" v-model="redact.label">
       </li>
       <li>
-        <p>发布时间：</p>
-        <input type="text" v-model="redact.time">
-      </li>
-      <li>
         <p>封面：</p>
         <img-input :imgVal="redact.cover" @imgInput="addcover"></img-input>
       </li>
