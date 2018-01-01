@@ -2,8 +2,8 @@
   <div class="img-input">
     <i class="fa fa-image"></i>
     <p>点击上传图片</p>
-    <input type="file" id="pic" @change="fileImg()">
-    <div class="img-box" v-if="img"><img :src="img" alt="">
+    <input type="file" id="pic" @change="fileImg">
+    <div class="img-box" v-if="imgVal"><img :src="imgVal" alt="">
       <div class="img-replace">
         <p>点击替换图片</p>
       </div>
@@ -15,29 +15,19 @@
 export default {
   data () {
     return {
-      img: ''
+      imgVal: ''
     }
   },
   methods: {
     fileImg () {
-      let pic = document.getElementById('pic').files[0]
-      let imgval = URL.createObjectURL(pic)
-      function getBase64Image (imgval) {
-        let canvas = document.createElement('canvas')
-        canvas.width = imgval.width
-        canvas.height = imgval.height
-        let ctx = canvas.getContext('2d')
-        ctx.drawImage(imgval, 0, 0, imgval.width, imgval.height)
-        let ext = imgval.src.substring(imgval.src.lastIndexOf('.') + 1).toLowerCase()
-        let dataURL = canvas.toDataURL('image/' + ext)
-        return dataURL
-      }
-
-      let image = new Image()
-      image.src = imgval
-      image.onload = function () {
-        let base64 = getBase64Image(image)
-        console.log(base64)
+      var oFile = document.querySelector('#pic')
+      for (var i = 0; i < oFile.files.length; i++) {
+        var url = window.URL.createObjectURL(oFile.files[i])
+        // 创建预览图片
+        var img = new Image()
+        img.src = url
+        // 插入预览图片
+        this.imgVal = img.src
       }
     }
   }
