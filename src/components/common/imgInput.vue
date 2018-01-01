@@ -3,7 +3,7 @@
     <i class="fa fa-image"></i>
     <p>点击上传图片</p>
     <input type="file" id="pic" @change="fileImg">
-    <div class="img-box" v-if="imgVal"><img :src="imgVal" alt="">
+    <div class="img-box" v-if="imgData"><img :src="imgData" alt="">
       <div class="img-replace">
         <p>点击替换图片</p>
       </div>
@@ -28,11 +28,10 @@ export default {
         let img = new Image()
         img.src = url
         // 插入预览图片
+        this.imgVal = this.imgData
         this.imgData = img.src
       }
     }
-  },
-  created () {
   }
 }
 </script>
