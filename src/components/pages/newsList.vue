@@ -1,6 +1,6 @@
 <template>
   <div class="news-list">
-    <add-btn :list="newsList"></add-btn>
+    <add-btn></add-btn>
     <my-tables :headline="newsTitle" :tableData="newsList"></my-tables>
   </div>
 </template>

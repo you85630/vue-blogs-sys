@@ -1,6 +1,6 @@
 <template>
   <div class="blog-list">
-    <add-btn :list="blogList"></add-btn>
+    <add-btn></add-btn>
     <my-tables :headline="blogTitle" :tableData="blogList"></my-tables>
   </div>
 </template>

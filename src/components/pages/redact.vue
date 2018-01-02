@@ -25,9 +25,9 @@
       <li>
         <p></p>
         <button class="look" @click="lookNow">预览</button>
-        <button @click="pushList">提交</button>
       </li>
     </ul>
+    <preview-now :show="preview" @showNow="show" :blog="redact"></preview-now>
   </div>
 </template>
 
@@ -35,9 +35,15 @@
 import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
 import editorMarkdown from 'components/common/editorMarkdown'
+import previewNow from 'components/common/previewNow'
 
 import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      preview: false
+    }
+  },
   computed: {
     ...mapGetters([
       'redact'
@@ -46,7 +52,8 @@ export default {
   components: {
     backBtn,
     imgInput,
-    editorMarkdown
+    editorMarkdown,
+    previewNow
   },
   methods: {
     addcover (data) {
@@ -55,16 +62,23 @@ export default {
     addmarkdown (data) {
       this.redact.info = data
     },
-    lookNow () {
-      console.log(this.redact)
+    show (data) {
+      this.preview = data
     },
-    pushList () { }
+    lookNow () {
+      this.preview = true
+    }
+  },
+  created () {
+    let a = this.$router
+    console.log(a)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .redact {
+  position: relative;
   padding: 2vw;
 }
 ul {
@@ -88,7 +102,7 @@ ul {
     textarea {
       height: 6vw;
     }
-    button {
+    .look {
       padding: 1vw 3vw;
       border: none;
       border-radius: 2px;
@@ -96,10 +110,6 @@ ul {
       color: #fff;
       font-size: 1.2vw;
       line-height: 1;
-    }
-    .look {
-      margin-right: 2vw;
-      background-color: #fc0;
     }
   }
 }

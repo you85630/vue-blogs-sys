@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+import mutations from './mutations'
 
+Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     leftNav: [
@@ -95,5 +96,5 @@ export default new Vuex.Store({
     redact: state => state.redact
   },
   actions: {},
-  mutations: {}
+  mutations
 })
