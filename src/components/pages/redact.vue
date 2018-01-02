@@ -34,7 +34,7 @@
 <script>
 import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
-import previewNow from 'components/common/previewNow'
+import previewNow from 'components/common/preview'
 
 import { mapGetters } from 'vuex'
 export default {
@@ -106,7 +106,7 @@ ul {
     }
   }
   .markdown {
-    height: 20vh;
+    height: 40vh;
   }
 }
 </style>

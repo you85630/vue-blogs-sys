@@ -47,7 +47,24 @@ export default {
       this.showone = false
       this.$emit('showNow', this.showone)
     },
-    pushList () { }
+    pushList () {
+      let num = this.$router.currentRoute.query.key
+      let list = this.$router.currentRoute.query.list
+      if (num === undefined) {
+        console.log('无num:' + num)
+        // list.push(this.preview)
+      } else {
+        if (list === 'blogList') {
+          this.$store.state.blogList.splice(num, num + 1, this.preview)
+        } else if (list === 'newsList') {
+          this.$store.state.newsList[num].splice(num, num + 1, this.preview)
+        }
+      }
+      this.showone = false
+      this.$emit('showNow', this.showone)
+      this.$router.push('/' + list)
+      this.preview = {}
+    }
   }
 }
 </script>
@@ -58,12 +75,13 @@ export default {
   top: 0;
   left: 0;
   padding: 2vw 2%;
-  min-height: 70vh;
+  min-height: 80vh;
   width: 96%;
   background-color: #fff;
   font-size: 20px;
   .push {
     text-align: center;
+    padding-top: 2vh;
     button {
       padding: 1vw 3vw;
       border: none;

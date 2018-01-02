@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import mutations from './mutations'
+// import * as types from './types'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -96,5 +96,5 @@ export default new Vuex.Store({
     redact: state => state.redact
   },
   actions: {},
-  mutations
+  mutations: {}
 })
