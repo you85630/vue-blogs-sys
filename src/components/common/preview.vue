@@ -60,10 +60,13 @@ export default {
           this.$store.state.newsList[num].splice(num, num + 1, this.preview)
         }
       }
+      // 返回初始值
+      this.preview = {}
       this.showone = false
       this.$emit('showNow', this.showone)
-      this.$router.push('/' + list)
-      this.preview = {}
+      this.$router.push({ name: list })
+      // 刷新页面
+      location.reload()
     }
   }
 }
