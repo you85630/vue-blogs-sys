@@ -11,7 +11,7 @@
       </p>
     </div>
     <div class="message">{{preview.message}}</div>
-    <div class="info">{{preview.info}}</div>
+    <div class="info" v-html="showMarkdown">{{preview.info}}</div>
     <div class="push">
       <button @click="goback">返回</button>
       <button @click="pushList">提交</button>
@@ -20,12 +20,19 @@
 </template>
 
 <script>
+import marked from 'marked'
 export default {
   props: ['blog', 'show'],
   data () {
     return {
       showone: '',
       preview: {}
+    }
+  },
+  computed: {
+    showMarkdown: function () {
+      let info = marked(this.preview.info, { sanitize: true })
+      return info
     }
   },
   created () {

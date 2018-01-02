@@ -20,7 +20,7 @@
       </li>
       <li>
         <p>内容：</p>
-        <editor-markdown :text="redact.info" @MarkdownDate="addmarkdown"></editor-markdown>
+        <textarea class="markdown" v-model="redact.info"></textarea>
       </li>
       <li>
         <p></p>
@@ -34,7 +34,6 @@
 <script>
 import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
-import editorMarkdown from 'components/common/editorMarkdown'
 import previewNow from 'components/common/previewNow'
 
 import { mapGetters } from 'vuex'
@@ -52,15 +51,11 @@ export default {
   components: {
     backBtn,
     imgInput,
-    editorMarkdown,
     previewNow
   },
   methods: {
     addcover (data) {
       this.redact.cover = data
-    },
-    addmarkdown (data) {
-      this.redact.info = data
     },
     show (data) {
       this.preview = data
@@ -68,10 +63,6 @@ export default {
     lookNow () {
       this.preview = true
     }
-  },
-  created () {
-    let a = this.$router
-    console.log(a)
   }
 }
 </script>
@@ -84,11 +75,13 @@ export default {
 ul {
   li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 1.2vw;
     p {
       width: 20%;
       font-size: 1.2vw;
+      line-height: 2;
+      text-align: center;
     }
     input,
     textarea {
@@ -111,6 +104,9 @@ ul {
       font-size: 1.2vw;
       line-height: 1;
     }
+  }
+  .markdown {
+    height: 20vh;
   }
 }
 </style>
