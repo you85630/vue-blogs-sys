@@ -40,8 +40,6 @@ export default {
     this.preview.read = '1'
     let now = new Date().toLocaleDateString().replace('/', '-').replace('/', '-')
     this.preview.time = now
-
-    this.isAdd()
   },
   methods: {
     goback () {
@@ -56,21 +54,14 @@ export default {
         this.$store.state.blogList.splice(key, key + 1, this.preview)
       } else if (list === 'newsList') {
         this.$store.state.newsList.splice(key, key + 1, this.preview)
+      } else {
+        console.log(list)
       }
       // 返回初始值
       this.showone = false
       this.$emit('showNow', this.showone)
       this.$router.push({ name: list })
-    },
-    isAdd () {
-      let list = this.$router.currentRoute.query.list
-      let key = parseInt(this.$router.currentRoute.query.key)
-      console.log(list)
-      console.log(key)
     }
-  },
-  watch: {
-    '$route': 'isAdd'
   }
 }
 </script>
