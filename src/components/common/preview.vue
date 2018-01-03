@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     goback () {
-      this.show = this.show
+      this.showone = this.show
       this.showone = false
       this.$emit('showNow', this.showone)
     },
