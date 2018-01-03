@@ -59,11 +59,13 @@ export default {
       this.preview = true
     },
     isTab () {
-      let router = this.$router.currentRoute.query
-      if (router.list === 'blogList') {
-        this.redact = this.$store.state.blogList[router.key]
-      } else if (router.list === 'newsList') {
-        this.redact = this.$store.state.newsList[router.key]
+      this.redact = {}
+      let list = this.$router.currentRoute.query.list
+      let key = parseInt(this.$router.currentRoute.query.key)
+      if (list === 'blogList') {
+        this.redact = this.$store.state.blogList[key]
+      } else if (list === 'newsList') {
+        this.redact = this.$store.state.newsList[key]
       }
     }
   },

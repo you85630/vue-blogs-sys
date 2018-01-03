@@ -1,6 +1,8 @@
 <template>
   <div class="left-nav">
-    <div class="logo">博客后台</div>
+    <div class="logo">
+      <router-link to="/">博客后台</router-link>
+    </div>
     <div class="nav">
       <ul class="container">
         <li v-for="(li,index) in leftNav" :key="li.index">
@@ -30,9 +32,11 @@ export default {
 }
 .logo {
   height: 12vh;
-  color: #fff;
   font-size: 3vw;
   line-height: 12vh;
+  a {
+    color: #fff;
+  }
 }
 .nav {
   height: 88vh;
