@@ -48,25 +48,17 @@ export default {
       this.$emit('showNow', this.showone)
     },
     pushList () {
-      let num = this.$router.currentRoute.query.key
       let list = this.$router.currentRoute.query.list
-      if (num === undefined) {
-        console.log('无num:' + num)
-        // list.push(this.preview)
-      } else {
-        if (list === 'blogList') {
-          this.$store.state.blogList.splice(num, num + 1, this.preview)
-        } else if (list === 'newsList') {
-          this.$store.state.newsList[num].splice(num, num + 1, this.preview)
-        }
+      let key = parseInt(this.$router.currentRoute.query.key)
+      if (list === 'blogList') {
+        this.$store.state.blogList.splice(key, key + 1, this.preview)
+      } else if (list === 'newsList') {
+        this.$store.state.newsList.splice(key, key + 1, this.preview)
       }
       // 返回初始值
-      this.preview = {}
       this.showone = false
       this.$emit('showNow', this.showone)
       this.$router.push({ name: list })
-      // 刷新页面
-      location.reload()
     }
   }
 }

@@ -36,17 +36,12 @@ import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
 import previewNow from 'components/common/preview'
 
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      preview: false
+      preview: false,
+      redact: {}
     }
-  },
-  computed: {
-    ...mapGetters([
-      'redact'
-    ])
   },
   components: {
     backBtn,
@@ -62,7 +57,21 @@ export default {
     },
     lookNow () {
       this.preview = true
+    },
+    isTab () {
+      let router = this.$router.currentRoute.query
+      if (router.list === 'blogList') {
+        this.redact = this.$store.state.blogList[router.key]
+      } else if (router.list === 'newsList') {
+        this.redact = this.$store.state.newsList[router.key]
+      }
     }
+  },
+  created () {
+    this.isTab()
+  },
+  watch: {
+    '$route': 'isTab'
   }
 }
 </script>
