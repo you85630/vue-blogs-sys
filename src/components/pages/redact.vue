@@ -24,48 +24,51 @@
       </li>
       <li>
         <p></p>
-        <button class="look" @click="lookNow">预览</button>
+        <button @click="pushList">提交</button>
       </li>
     </ul>
-    <preview-now :show="preview" @showNow="show" :blog="redact"></preview-now>
   </div>
 </template>
 
 <script>
 import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
-import previewNow from 'components/common/preview'
 
 export default {
   data () {
     return {
-      preview: false,
       redact: {}
     }
   },
   components: {
     backBtn,
-    imgInput,
-    previewNow
+    imgInput
   },
   methods: {
     addcover (data) {
       this.redact.cover = data
     },
-    show (data) {
-      this.preview = data
-    },
-    lookNow () {
-      this.preview = true
+    pushList () {
+      let list = this.$router.currentRoute.query.list
+      let key = parseInt(this.$router.currentRoute.query.key)
+      if (list === 'blogList') {
+        this.$store.state.blogList.splice(key, key + 1, this.redact)
+      } else if (list === 'newsList') {
+        this.$store.state.newsList.splice(key, key + 1, this.redact)
+      } else {
+        console.log(list)
+      }
+      this.$router.go(-1)
     },
     isTab () {
-      this.redact = {}
       let list = this.$router.currentRoute.query.list
       let key = parseInt(this.$router.currentRoute.query.key)
       if (list === 'blogList') {
         this.redact = this.$store.state.blogList[key]
       } else if (list === 'newsList') {
         this.redact = this.$store.state.newsList[key]
+      } else {
+        this.redact = {}
       }
     }
   },
@@ -106,7 +109,7 @@ ul {
     textarea {
       height: 6vw;
     }
-    .look {
+    button {
       padding: 1vw 3vw;
       border: none;
       border-radius: 2px;
