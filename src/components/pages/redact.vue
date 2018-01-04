@@ -34,47 +34,26 @@
 import backBtn from 'components/common/backBtn'
 import imgInput from 'components/common/imgInput'
 
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
-  data () {
-    return {
-      redact: {}
-    }
-  },
   components: {
     backBtn,
     imgInput
   },
+  computed: {
+    ...mapGetters([
+      'redact'
+    ])
+  },
   methods: {
     addcover (data) {
-      this.redact.cover = data
+      this.$store.state.redact.cover = data
     },
-    pushList () {
-      let list = this.$router.currentRoute.query.list
-      let key = parseInt(this.$router.currentRoute.query.key)
-      let add = this.$router.currentRoute.query.name
-      // 修改
-      if (list === 'blogList') {
-        this.$store.state.blogList.splice(key, key + 1, this.redact)
-      } else if (list === 'newsList') {
-        this.$store.state.newsList.splice(key, key + 1, this.redact)
-      } else if (add === 'blogList') {
-        this.$store.state.blogList.push(this.redact)
-      } else if (add === 'newsList') {
-        this.$store.state.newsList.push(this.redact)
-      }
-      this.$router.go(-1)
-    },
-    isTab () {
-      let list = this.$router.currentRoute.query.list
-      let key = parseInt(this.$router.currentRoute.query.key)
-      if (list === 'blogList') {
-        this.redact = this.$store.state.blogList[key]
-      } else if (list === 'newsList') {
-        this.redact = this.$store.state.newsList[key]
-      } else {
-        this.redact = {}
-      }
-    }
+    ...mapActions([
+      'pushList',
+      'isTab'
+    ])
   },
   created () {
     this.isTab()

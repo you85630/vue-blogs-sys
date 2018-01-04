@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import * as types from './types'
+import * as types from './types'
+import router from './../router'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -77,15 +78,52 @@ export default new Vuex.Store({
         message: '2简介',
         info: '2内容'
       }
-    ]
+    ],
+    redact: {}
   },
   getters: {
     leftNav: state => state.leftNav,
     blogTitle: state => state.blogTitle,
     blogList: state => state.blogList,
     newsTitle: state => state.newsTitle,
-    newsList: state => state.newsList
+    newsList: state => state.newsList,
+    redact: state => state.redact
   },
-  actions: {},
-  mutations: {}
+  actions: {
+    pushList ({ commit }) {
+      commit('PUSH_LIST')
+    },
+    isTab ({ commit }) {
+      commit('IS_TAB')
+    }
+  },
+  mutations: {
+    [types.PUSH_LIST]: state => {
+      let list = router.currentRoute.query.list
+      let key = parseInt(router.currentRoute.query.key)
+      let add = router.currentRoute.query.name
+      // 修改
+      if (list === 'blogList') {
+        state.blogList.splice(key, key + 1, state.redact)
+      } else if (list === 'newsList') {
+        state.newsList.splice(key, key + 1, state.redact)
+      } else if (add === 'blogList') {
+        state.blogList.push(state.redact)
+      } else if (add === 'newsList') {
+        state.newsList.push(state.redact)
+      }
+      router.go(-1)
+    },
+    [types.IS_TAB]: state => {
+      let list = router.currentRoute.query.list
+      let key = parseInt(router.currentRoute.query.key)
+      if (list === 'blogList') {
+        state.redact = state.blogList[key]
+      } else if (list === 'newsList') {
+        state.redact = state.newsList[key]
+      } else {
+        state.redact = {}
+      }
+    }
+  }
 })
