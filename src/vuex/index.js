@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import * as types from './types'
 import router from './../router'
+import moment from 'moment'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -102,12 +103,17 @@ export default new Vuex.Store({
       let list = router.currentRoute.query.list
       let key = parseInt(router.currentRoute.query.key)
       let add = router.currentRoute.query.name
-      // 修改
       if (list === 'blogList') {
+        // 修改
         state.blogList.splice(key, key + 1, state.redact)
       } else if (list === 'newsList') {
         state.newsList.splice(key, key + 1, state.redact)
       } else if (add === 'blogList') {
+        // 添加
+        state.redact.read = '1'
+        let time = moment().format('YYYY-MM-DD HH:mm')
+        console.log(time)
+        state.redact.time = time
         state.blogList.push(state.redact)
       } else if (add === 'newsList') {
         state.newsList.push(state.redact)

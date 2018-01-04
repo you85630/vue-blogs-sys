@@ -15,6 +15,7 @@
     "font-awesome": "^4.7.0",
     "install": "^0.10.2",
     "marked": "^0.3.9",
+    "moment": "^2.20.1",
     "mongoose": "^4.13.7",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
