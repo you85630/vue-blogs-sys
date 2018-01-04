@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 
 import api from 'assets/js/api'
 import * as types from './types'
-import router from 'router'
+import router from './../router'
+import moment from 'moment'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -69,25 +70,25 @@ export default new Vuex.Store({
       let key = parseInt(router.currentRoute.query.key)
       let add = router.currentRoute.query.name
       if (list === 'blogList') {
-        // 编辑文章
+        // 修改文章
         state.blogList.splice(key, key + 1, state.redact)
         api.post('/blogslist', state.blogList)
       } else if (list === 'newsList') {
-        // 编辑广告
+        // 修改广告
         state.newsList.splice(key, key + 1, state.redact)
-        api.post('/newslist', state.newsList)
+        api.post('/newsList', state.newsList)
       } else if (add === 'blogList') {
         state.redact.read = '1'
-        state.redact.time = new Date()
-        // 新增文章
+        state.redact.time = moment().format('YYYY-MM-DD HH:mm')
+        // 添加文章
         state.blogList.push(state.redact)
-        api.post('/blogslist', state.blogList)
+        api.post('/blogslist', state.redact)
       } else if (add === 'newsList') {
         state.redact.read = '1'
-        state.redact.time = new Date()
-        // 新增广告
+        state.redact.time = moment().format('YYYY-MM-DD HH:mm')
+        // 添加广告
         state.newsList.push(state.redact)
-        api.post('/newslist', state.newsList)
+        api.post('/newsList', state.newsList)
       }
       commit('PUSH_LIST')
     },
@@ -98,11 +99,11 @@ export default new Vuex.Store({
   },
   mutations: {
     // 获取文章
-    [types.GET_BLOGS]: (state, res) => {
+    [types.GET_BLOGS] (state, res) {
       state.blogList = res
     },
     // 获取新闻
-    [types.GET_NEWS]: (state, res) => {
+    [types.GET_NEWS] (state, res) {
       state.newsList = res
     },
     // 编辑新增

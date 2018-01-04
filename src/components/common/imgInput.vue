@@ -34,11 +34,11 @@ export default {
         }
       }
       run(oFile, (data) => {
+        // 插入预览图片
+        this.mgVal = this.imgData
         this.imgData = data
+        this.$emit('imgInput', this.imgData)
       })
-      // 插入预览图片
-      this.mgVal = this.imgData
-      this.$emit('imgInput', this.imgData)
     }
   },
   created () {
