@@ -3,7 +3,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const login = () => import('views/login')
-const index = () => import('views/index')
+const sys = () => import('views/index')
 const blogList = () => import('components/pages/blogList')
 const newsList = () => import('components/pages/newsList')
 const redact = () => import('components/pages/redact')
@@ -12,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/sys'
     },
     {
       path: '/login',
@@ -20,9 +20,9 @@ export default new Router({
       component: login
     },
     {
-      path: '/index',
-      name: 'index',
-      component: index,
+      path: '/sys',
+      name: 'sys',
+      component: sys,
       children: [
         {
           path: '/blogList',
