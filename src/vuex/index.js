@@ -30,27 +30,6 @@ export default new Vuex.Store({
       message: '简介',
       info: '内容'
     },
-    blogList: [
-      {
-        title:
-          '1标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-        label: 'vue jquery angular mongoose',
-        time: '2017-10-12 12:30',
-        read: '1234123412341234',
-        cover: '1封面',
-        message: '1简介',
-        info: '1内容'
-      },
-      {
-        title: '2标题',
-        label: '2标签',
-        time: '2时间',
-        read: '3456',
-        cover: '2封面',
-        message: '2简介',
-        info: '2内容'
-      }
-    ],
     newsTitle: {
       title: '标题',
       label: '标签',
@@ -60,27 +39,8 @@ export default new Vuex.Store({
       message: '简介',
       info: '内容'
     },
-    newsList: [
-      {
-        title:
-          '2222222标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-        label: 'vue jquery angular mongoose',
-        time: '2017-10-12 12:30',
-        read: '1234123412341234',
-        cover: '1封面',
-        message: '1简介',
-        info: '1内容'
-      },
-      {
-        title: '2标题',
-        label: '2标签',
-        time: '2时间',
-        read: '3456',
-        cover: '2封面',
-        message: '2简介',
-        info: '2内容'
-      }
-    ],
+    blogList: [],
+    newsList: [],
     redact: {}
   },
   getters: {
@@ -93,20 +53,20 @@ export default new Vuex.Store({
   },
   actions: {
     // 获取文章
-    getBlogs: ({ commit }, key) => {
-      api.get('/getBlogs').then(res => {
+    blogsList: ({ commit }) => {
+      api.get('/blogslist').then(res => {
         commit('GET_BLOGS', res.data)
       })
     },
     // 获取新闻
-    getNews: ({ commit }, key) => {
-      api.get('/getNews').then(res => {
+    newsList: ({ commit }) => {
+      api.get('/newslist').then(res => {
         commit('GET_NEWS', res.data)
       })
     },
     // 编辑新增
-    pushList: ({ commit }, key) => {
-      api.post('/getBlogs').then(res => {
+    pushList: ({ commit }) => {
+      api.post('/blogslist').then(res => {
         commit('PUSH_LIST', res.data)
       })
     },

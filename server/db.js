@@ -32,8 +32,8 @@ const getNewsSchema = new mongoose.Schema({
 })
 
 const Model = {
-  getBlogs: mongoose.model('getBlogs', getBlogsSchema),
-  getNews: mongoose.model('getNews', getNewsSchema)
+  getBlogs: mongoose.model('blogslist', getBlogsSchema),
+  getNews: mongoose.model('newslist', getNewsSchema)
 }
 
 module.exports = Model
