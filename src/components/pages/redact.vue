@@ -4,23 +4,23 @@
     <ul>
       <li>
         <p>标题：</p>
-        <input type="text" v-model="redact.title">
+        <input type="text" v-model="redact.title" name="title">
       </li>
       <li>
         <p>标签：</p>
-        <input type="text" v-model="redact.label">
+        <input type="text" v-model="redact.label" name="label">
       </li>
       <li>
         <p>封面：</p>
-        <img-input :imgVal="redact.cover" @imgInput="addcover"></img-input>
+        <img-input :imgVal="redact.cover" @imgInput="addcover" name="cover"></img-input>
       </li>
       <li>
         <p>简介：</p>
-        <textarea v-model="redact.message"></textarea>
+        <textarea v-model="redact.message" name="message"></textarea>
       </li>
       <li>
         <p>内容：</p>
-        <textarea class="markdown" v-model="redact.info"></textarea>
+        <textarea class="markdown" v-model="redact.info" name="info"></textarea>
       </li>
       <li>
         <p></p>

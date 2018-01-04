@@ -30,23 +30,43 @@ router.get('/newslist', (req, res) => {
 })
 // 提交
 router.post('/blogslist', urlencodedParser, (req, res) => {
-  console.log(req.body)
-  // const blogslist = [
-  //   {
-  //     title: req.body,
-  //     label: req.body,
-  //     time: req.body,
-  //     read: req.body,
-  //     cover: req.body,
-  //     message: req.body,
-  //     info: req.body
-  //   }
-  // ]
-  // db.newsList.create(blogslist, err => {
-  //   if (err) {
-  //     res.send(err)
-  //   }
-  // })
+  const blogslist = [
+    {
+      title: req.body.title,
+      label: req.body.label,
+      time: req.body.time,
+      read: req.body.read,
+      cover: req.body.cover,
+      message: req.body.message,
+      info: req.body.info
+    }
+  ]
+  db.getBlogs.create(blogslist, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
+})
+// 提交
+router.post('/newsList', urlencodedParser, (req, res) => {
+  const newsList = [
+    {
+      title: req.body.title,
+      label: req.body.label,
+      time: req.body.time,
+      read: req.body.read,
+      message: req.body.message
+    }
+  ]
+  db.getNews.create(newsList, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
 })
 
 module.exports = router

@@ -65,10 +65,32 @@ export default new Vuex.Store({
       })
     },
     // 编辑新增
-    pushList: ({ commit }) => {
-      api.post('/blogslist').then(res => {
-        commit('PUSH_LIST', res.data)
-      })
+    pushList: ({ commit, state }) => {
+      let list = router.currentRoute.query.list
+      let key = parseInt(router.currentRoute.query.key)
+      let add = router.currentRoute.query.name
+      if (list === 'blogList') {
+        // 修改文章
+        state.blogList.splice(key, key + 1, state.redact)
+        api.post('/blogslist', state.blogList)
+      } else if (list === 'newsList') {
+        // 修改广告
+        state.newsList.splice(key, key + 1, state.redact)
+        api.post('/newsList', state.newsList)
+      } else if (add === 'blogList') {
+        state.redact.read = '1'
+        state.redact.time = moment().format('YYYY-MM-DD HH:mm')
+        // 添加文章
+        state.blogList.push(state.redact)
+        api.post('/blogslist', state.redact)
+      } else if (add === 'newsList') {
+        state.redact.read = '1'
+        state.redact.time = moment().format('YYYY-MM-DD HH:mm')
+        // 添加广告
+        state.newsList.push(state.redact)
+        api.post('/newsList', state.newsList)
+      }
+      commit('PUSH_LIST')
     },
     // 监控路由
     isTab ({ commit }) {
@@ -86,24 +108,6 @@ export default new Vuex.Store({
     },
     // 编辑新增
     [types.PUSH_LIST]: state => {
-      let list = router.currentRoute.query.list
-      let key = parseInt(router.currentRoute.query.key)
-      let add = router.currentRoute.query.name
-      if (list === 'blogList') {
-        // 修改
-        state.blogList.splice(key, key + 1, state.redact)
-      } else if (list === 'newsList') {
-        state.newsList.splice(key, key + 1, state.redact)
-      } else if (add === 'blogList') {
-        // 添加
-        state.redact.read = '1'
-        let time = moment().format('YYYY-MM-DD HH:mm')
-        console.log(time)
-        state.redact.time = time
-        state.blogList.push(state.redact)
-      } else if (add === 'newsList') {
-        state.newsList.push(state.redact)
-      }
       router.go(-1)
     },
     // 监控路由
