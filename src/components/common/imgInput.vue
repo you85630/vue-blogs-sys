@@ -32,6 +32,7 @@ export default {
           reader.readAsDataURL(file)
         }
       }
+      this.mgVal = this.imgData
       run(oFile, (data) => {
         this.imgData = data
       })
