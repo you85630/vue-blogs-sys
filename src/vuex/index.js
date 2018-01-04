@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import api from 'assets/js/api'
 import * as types from './types'
 import router from './../router'
 import moment from 'moment'
@@ -91,14 +92,39 @@ export default new Vuex.Store({
     redact: state => state.redact
   },
   actions: {
-    pushList ({ commit }) {
-      commit('PUSH_LIST')
+    // 获取文章
+    getBlogs: ({ commit }, key) => {
+      api.get('/getBlogs').then(res => {
+        commit('GET_BLOGS', res.data)
+      })
     },
+    // 获取新闻
+    getNews: ({ commit }, key) => {
+      api.get('/getNews').then(res => {
+        commit('GET_NEWS', res.data)
+      })
+    },
+    // 编辑新增
+    pushList: ({ commit }, key) => {
+      api.post('/getBlogs').then(res => {
+        commit('PUSH_LIST', res.data)
+      })
+    },
+    // 监控路由
     isTab ({ commit }) {
       commit('IS_TAB')
     }
   },
   mutations: {
+    // 获取文章
+    [types.GET_BLOGS] (state, res) {
+      state.blogList = res
+    },
+    // 获取新闻
+    [types.GET_NEWS] (state, res) {
+      state.newsList = res
+    },
+    // 编辑新增
     [types.PUSH_LIST]: state => {
       let list = router.currentRoute.query.list
       let key = parseInt(router.currentRoute.query.key)
@@ -120,6 +146,7 @@ export default new Vuex.Store({
       }
       router.go(-1)
     },
+    // 监控路由
     [types.IS_TAB]: state => {
       let list = router.currentRoute.query.list
       let key = parseInt(router.currentRoute.query.key)
