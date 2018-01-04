@@ -2,7 +2,7 @@
   <div class="img-input">
     <i class="fa fa-image"></i>
     <p>点击上传图片</p>
-    <input type="file" id="pic" @change="fileImg">
+    <input type="file" id="input" @change="fileImg">
     <div class="img-box" v-if="imgData"><img :src="imgData" alt="">
       <div class="img-replace">
         <p>点击替换图片</p>
@@ -21,17 +21,22 @@ export default {
   },
   methods: {
     fileImg () {
-      let oFile = document.querySelector('#pic')
-      for (let i = 0; i < oFile.files.length; i++) {
-        let url = window.URL.createObjectURL(oFile.files[i])
-        // 创建预览图片
-        let img = new Image()
-        img.src = url
-        // 插入预览图片
-        this.imgVal = this.imgData
-        this.imgData = img.src
-        this.$emit('imgInput', this.imgData)
+      let oFile = document.querySelector('#input')
+      function run (input, pic) {
+        if (typeof (FileReader) !== 'undefined') {
+          var file = input.files[0]
+          var reader = new FileReader()
+          reader.onload = function () {
+            pic(this.result)
+          }
+          reader.readAsDataURL(file)
+        }
       }
+      run(oFile, (data) => {
+        this.imgData = data
+      })
+      // 插入预览图片
+      this.$emit('imgInput', this.imgData)
     }
   }
 }
