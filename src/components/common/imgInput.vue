@@ -24,9 +24,9 @@ export default {
     fileImg () {
       let oFile = document.querySelector('#input')
       function run (input, pic) {
+        let file = input.files[0]
+        let reader = new FileReader()
         if (typeof (FileReader) !== 'undefined') {
-          var file = input.files[0]
-          var reader = new FileReader()
           reader.onload = function () {
             pic(this.result)
           }
@@ -40,8 +40,6 @@ export default {
         this.$emit('imgInput', this.imgData)
       })
     }
-  },
-  created () {
   }
 }
 </script>
