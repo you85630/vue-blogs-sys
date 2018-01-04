@@ -8,8 +8,9 @@
 export default {
   methods: {
     addList () {
-      let router = this.$router.currentRoute.fullPath + '/redact'
-      this.$router.push(router)
+      let router = this.$router.currentRoute.name
+      let to = this.$router.currentRoute.fullPath + '/redact'
+      this.$router.push({ path: to, query: { name: router } })
     }
   }
 }

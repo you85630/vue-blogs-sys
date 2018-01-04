@@ -51,12 +51,16 @@ export default {
     pushList () {
       let list = this.$router.currentRoute.query.list
       let key = parseInt(this.$router.currentRoute.query.key)
+      let add = this.$router.currentRoute.query.name
+      // 修改
       if (list === 'blogList') {
         this.$store.state.blogList.splice(key, key + 1, this.redact)
       } else if (list === 'newsList') {
         this.$store.state.newsList.splice(key, key + 1, this.redact)
-      } else {
-        console.log(list)
+      } else if (add === 'blogList') {
+        this.$store.state.blogList.push(this.redact)
+      } else if (add === 'newsList') {
+        this.$store.state.newsList.push(this.redact)
       }
       this.$router.go(-1)
     },
