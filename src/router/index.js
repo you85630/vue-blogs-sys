@@ -7,6 +7,7 @@ const sys = () => import('views/index')
 const blogList = () => import('components/pages/blogList')
 const newsList = () => import('components/pages/newsList')
 const redact = () => import('components/pages/redact')
+const newsredact = () => import('components/pages/newsredact')
 
 export default new Router({
   routes: [
@@ -39,8 +40,8 @@ export default new Router({
           component: redact
         },
         {
-          path: '/newsList/redact',
-          component: redact
+          path: '/newsList/newsredact',
+          component: newsredact
         }
       ]
     }

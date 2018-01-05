@@ -17,7 +17,7 @@ db.once('open', () => {
 const getBlogsSchema = new mongoose.Schema({
   title: String,
   label: String,
-  time: Date,
+  time: String,
   read: Number,
   cover: String,
   message: String,
@@ -25,7 +25,7 @@ const getBlogsSchema = new mongoose.Schema({
 })
 const getNewsSchema = new mongoose.Schema({
   title: String,
-  time: Date,
+  time: String,
   label: String,
   read: Number,
   message: String

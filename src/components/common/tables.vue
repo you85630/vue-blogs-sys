@@ -16,7 +16,7 @@
         <dd class="time">{{dl.time}}</dd>
         <dd class="read">{{dl.read}}</dd>
         <dt>
-          <router-link :to="{path:router,query:{key:index,list:name}}">编辑</router-link>
+          <router-link :to="{path:to,query:{key:index,list:name}}">编辑</router-link>
           <button @click='removeList(index)'>删除</button>
         </dt>
       </dl>
@@ -32,7 +32,7 @@ export default {
   ],
   data () {
     return {
-      router: '',
+      to: '',
       name: ''
     }
   },
@@ -42,8 +42,12 @@ export default {
     }
   },
   created () {
-    this.router = this.$router.currentRoute.fullPath + '/redact'
     this.name = this.$router.currentRoute.name
+    if (this.name === 'blogList') {
+      this.to = this.$router.currentRoute.fullPath + '/redact'
+    } else if (this.name === 'newsList') {
+      this.to = this.$router.currentRoute.fullPath + '/newsredact'
+    }
   }
 }
 </script>

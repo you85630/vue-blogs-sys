@@ -85,7 +85,7 @@ export default new Vuex.Store({
         api.post('/blogslist', state.redact)
       } else if (add === 'newsList') {
         state.redact.read = '1'
-        state.redact.time = moment().format('YYYY-MM-DD HH:mm')
+        state.redact.time = moment().format('YYYY-MM-DD')
         // 添加广告
         state.newsList.push(state.redact)
         api.post('/newsList', state.redact)

@@ -9,8 +9,13 @@ export default {
   methods: {
     addList () {
       let router = this.$router.currentRoute.name
-      let to = this.$router.currentRoute.fullPath + '/redact'
-      this.$router.push({ path: to, query: { name: router } })
+      if (router === 'blogList') {
+        let to = this.$router.currentRoute.fullPath + '/redact'
+        this.$router.push({ path: to, query: { name: router } })
+      } else if (router === 'newsList') {
+        let to = this.$router.currentRoute.fullPath + '/newsredact'
+        this.$router.push({ path: to, query: { name: router } })
+      }
     }
   }
 }
