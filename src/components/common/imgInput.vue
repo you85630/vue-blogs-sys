@@ -35,11 +35,23 @@ export default {
       }
       run(oFile, (data) => {
         // 插入预览图片
-        this.mgVal = this.imgData
         this.imgData = data
-        this.$emit('imgInput', this.imgData)
+        this.$emit('imgInput', data)
       })
+    },
+    isImg () {
+      if (this.imgVal) {
+        this.imgData = this.imgVal
+      } else {
+        this.imgData = ''
+      }
     }
+  },
+  created () {
+    this.isImg()
+  },
+  watch: {
+    '$route': 'isImg'
   }
 }
 </script>
