@@ -3,8 +3,8 @@
     <i class="fa fa-image"></i>
     <p>点击上传图片</p>
     <input type="file" id="input" @change="fileImg">
-    <div class="img-box" v-if="imgData">
-      <img :src="imgData" alt="">
+    <div class="img-box" v-if="imgVal">
+      <img :src="imgVal" alt="">
       <div class="img-replace">
         <p>点击替换图片</p>
       </div>

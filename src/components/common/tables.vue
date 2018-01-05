@@ -78,7 +78,7 @@ export default {
         background-color: #2d8cf0;
         color: #fff;
         padding: 2% 6%;
-        margin: 1vw 0.5vw;
+        margin: 0 0.5vw;
         border-radius: 2px;
       }
       button {
@@ -113,6 +113,7 @@ export default {
   dl {
     font-size: 1vw;
     display: flex;
+    align-items: center;
     border-top: 1px solid #eee;
     &:nth-child(2n) {
       background-color: #f9f9f9;
