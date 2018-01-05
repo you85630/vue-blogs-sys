@@ -88,7 +88,7 @@ export default new Vuex.Store({
         state.redact.time = moment().format('YYYY-MM-DD HH:mm')
         // 添加广告
         state.newsList.push(state.redact)
-        api.post('/newsList', state.newsList)
+        api.post('/newsList', state.redact)
       }
       commit('PUSH_LIST')
     },
