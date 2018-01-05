@@ -71,11 +71,11 @@ export default new Vuex.Store({
       let add = router.currentRoute.query.name
       if (list === 'blogList') {
         // 修改文章
-        state.blogList.splice(key, key + 1, state.redact)
+        state.blogList.splice(key, 1, state.redact)
         api.post('/blogslist', state.blogList)
       } else if (list === 'newsList') {
         // 修改广告
-        state.newsList.splice(key, key + 1, state.redact)
+        state.newsList.splice(key, 1, state.redact)
         api.post('/newsList', state.newsList)
       } else if (add === 'blogList') {
         state.redact.read = '1'
