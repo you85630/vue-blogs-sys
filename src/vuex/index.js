@@ -72,11 +72,11 @@ export default new Vuex.Store({
       if (list === 'blogList') {
         // 修改文章
         state.blogList.splice(key, 1, state.redact)
-        api.post('/blogslist', state.redact)
+        api.post('/blogslist', state.redact, key)
       } else if (list === 'newsList') {
         // 修改广告
         state.newsList.splice(key, 1, state.redact)
-        api.post('/newsList', state.redact)
+        api.post('/newsList', state.redact, key)
       } else if (add === 'blogList') {
         state.redact.read = '1'
         state.redact.time = moment().format('YYYY-MM-DD HH:mm')

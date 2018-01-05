@@ -48,6 +48,14 @@ router.post('/blogslist', urlencodedParser, (req, res) => {
       res.send()
     }
   })
+  const key = { _id: req.body._id }
+  db.getBlogs.updata(blogslist, key, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
 })
 // 提交
 router.post('/newsList', urlencodedParser, (req, res) => {
@@ -61,6 +69,14 @@ router.post('/newsList', urlencodedParser, (req, res) => {
     }
   ]
   db.getNews.create(newsList, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
+  const key = { _id: req.body._id }
+  db.getBlogs.updata(newsList, key, err => {
     if (err) {
       res.send(err)
     } else {
