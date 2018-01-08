@@ -9,7 +9,7 @@ const urlencodedParser = bodyParser.urlencoded({
 })
 
 // 获取文章
-router.get('/blogslist', (req, res) => {
+router.get('/api/blogslist', (req, res) => {
   db.getBlogs.find({}, (err, doc) => {
     if (err) {
       res.send(err)
@@ -19,7 +19,7 @@ router.get('/blogslist', (req, res) => {
   })
 })
 // 获取广告
-router.get('/newslist', (req, res) => {
+router.get('/api/newslist', (req, res) => {
   db.getNews.find({}, (err, doc) => {
     if (err) {
       res.send(err)
@@ -28,8 +28,8 @@ router.get('/newslist', (req, res) => {
     }
   })
 })
-// 提交
-router.post('/blogslist', urlencodedParser, (req, res) => {
+// 增加文章
+router.post('/api/blogslist', urlencodedParser, (req, res) => {
   const blogslist = [
     {
       title: req.body.title,
@@ -48,17 +48,9 @@ router.post('/blogslist', urlencodedParser, (req, res) => {
       res.send()
     }
   })
-  const key = { _id: req.body._id }
-  db.getBlogs.updata(blogslist, key, err => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.send()
-    }
-  })
 })
-// 提交
-router.post('/newsList', urlencodedParser, (req, res) => {
+// 增加广告
+router.post('/api/newslist', urlencodedParser, (req, res) => {
   const newsList = [
     {
       title: req.body.title,
@@ -75,9 +67,24 @@ router.post('/newsList', urlencodedParser, (req, res) => {
       res.send()
     }
   })
-  const key = { _id: req.body._id }
-  db.getBlogs.find(key, (err, docs) => {
-    console.log(docs)
+})
+// 修改文章
+router.post('/api/upblogslist', urlencodedParser, (req, res) => {
+  const key = {
+    _id: req.body._id
+  }
+  const upDate = {
+    $set: {
+      _id: req.body._id,
+      title: req.body.title,
+      label: req.body.label,
+      read: req.body.read,
+      cover: req.body.cover,
+      message: req.body.message,
+      info: req.body.info
+    }
+  }
+  db.getBlogs.update(key, upDate, err => {
     if (err) {
       res.send(err)
     } else {
@@ -85,5 +92,52 @@ router.post('/newsList', urlencodedParser, (req, res) => {
     }
   })
 })
-
+// 修改广告
+router.post('/api/upnewslist', urlencodedParser, (req, res) => {
+  const key = {
+    _id: req.body._id
+  }
+  const upDate = {
+    $set: {
+      _id: req.body._id,
+      title: req.body.title,
+      label: req.body.label,
+      read: req.body.read,
+      message: req.body.message
+    }
+  }
+  db.getNews.update(key, upDate, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
+})
+// 删除文章
+router.post('/api/removeblogslist', urlencodedParser, (req, res) => {
+  const key = {
+    _id: req.body._id
+  }
+  db.getBlogs.remove(key, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
+})
+// 删除广告
+router.post('/api/removenewslist', urlencodedParser, (req, res) => {
+  const key = {
+    _id: req.body._id
+  }
+  db.getNews.remove(key, err => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send()
+    }
+  })
+})
 module.exports = router

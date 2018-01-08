@@ -17,7 +17,7 @@
         <dd class="read">{{dl.read}}</dd>
         <dt>
           <router-link :to="{path:to,query:{key:index,list:name}}">编辑</router-link>
-          <button @click='removeList(index)'>删除</button>
+          <button @click='remove(index)'>删除</button>
         </dt>
       </dl>
     </div>
@@ -37,8 +37,8 @@ export default {
     }
   },
   methods: {
-    removeList (key) {
-      this.tableData.splice(key, 1)
+    remove (key) {
+      this.$emit('remove', key)
     }
   },
   created () {

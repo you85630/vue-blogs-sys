@@ -1,7 +1,7 @@
 <template>
   <div class="blog-list">
     <add-btn></add-btn>
-    <my-tables :headline="blogTitle" :tableData="blogList" v-if="blogList.length"></my-tables>
+    <my-tables :headline="blogTitle" :tableData="blogList" v-if="blogList.length" @remove="removeList"></my-tables>
     <data-none v-else></data-none>
   </div>
 </template>
@@ -11,7 +11,7 @@ import myTables from 'components/common/tables'
 import addBtn from 'components/common/addBtn'
 import dataNone from 'components/common/dataNone'
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     addBtn,
@@ -22,6 +22,11 @@ export default {
     ...mapGetters([
       'blogTitle',
       'blogList'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'removeList'
     ])
   }
 }
