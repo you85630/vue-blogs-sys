@@ -12,12 +12,12 @@ export default new Vuex.Store({
     leftNav: [
       {
         title: '博文列表',
-        link: '/blogList',
+        link: '/sys/blogList',
         icon: 'fa-file-text-o'
       },
       {
         title: '公告列表',
-        link: '/newsList',
+        link: '/sys/newsList',
         icon: 'fa-newspaper-o'
       }
     ],

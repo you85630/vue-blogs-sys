@@ -26,21 +26,21 @@ export default new Router({
       component: sys,
       children: [
         {
-          path: '/blogList',
+          path: '/sys/blogList',
           name: 'blogList',
           component: blogList
         },
         {
-          path: '/newsList',
+          path: '/sys/newsList',
           name: 'newsList',
           component: newsList
         },
         {
-          path: '/blogList/redact',
+          path: '/sys/blogList/redact',
           component: redact
         },
         {
-          path: '/newsList/newsredact',
+          path: '/sys/newsList/newsredact',
           component: newsredact
         }
       ]
