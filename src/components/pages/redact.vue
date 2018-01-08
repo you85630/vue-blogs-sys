@@ -11,8 +11,16 @@
         <input type="text" v-model="redact.label" name="label">
       </li>
       <li>
+        <p>封面：</p>
+        <img-input :imgVal="redact.cover" @imgInput="addcover" name="cover"></img-input>
+      </li>
+      <li>
         <p>简介：</p>
         <textarea v-model="redact.message" name="message"></textarea>
+      </li>
+      <li>
+        <p>内容：</p>
+        <textarea class="markdown" v-model="redact.info" name="info"></textarea>
       </li>
       <li>
         <p></p>
@@ -23,8 +31,8 @@
 </template>
 
 <script>
-import backBtn from 'components/sys/common/backBtn'
-import imgInput from 'components/sys/common/imgInput'
+import backBtn from 'components/common/backBtn'
+import imgInput from 'components/common/imgInput'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -39,6 +47,9 @@ export default {
     ])
   },
   methods: {
+    addcover (data) {
+      this.$store.state.redact.cover = data
+    },
     ...mapActions([
       'pushList',
       'isTab'
@@ -79,7 +90,7 @@ ul {
       font-size: 1vw;
     }
     textarea {
-      height: 40vw;
+      height: 6vw;
     }
     button {
       padding: 1vw 3vw;
@@ -90,6 +101,9 @@ ul {
       font-size: 1.2vw;
       line-height: 1;
     }
+  }
+  .markdown {
+    height: 40vh;
   }
 }
 </style>
