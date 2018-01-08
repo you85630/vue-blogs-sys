@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import myHeader from 'components/common/header'
-import myFooter from 'components/common/footer'
-import leftNav from 'components/common/leftNav'
+import myHeader from 'components/sys/common/header'
+import myFooter from 'components/sys/common/footer'
+import leftNav from 'components/sys/common/leftNav'
 
 export default {
   components: {
