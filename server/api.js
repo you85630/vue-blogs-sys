@@ -8,6 +8,36 @@ const urlencodedParser = bodyParser.urlencoded({
   extended: false
 })
 
+// 登录
+router.post('/api/login', urlencodedParser, (req, res) => {
+  const { username, password } = req.body
+  db.getLogin.findOne({ username }, password, (err, doc) => {
+    console.log(password)
+    console.log(doc.password)
+    if (err) {
+      res.send(err)
+    }
+    if (!doc) {
+      res.send({
+        code: 400,
+        message: '账号不存在'
+      })
+    } else if (doc.password !== password) {
+      res.send({
+        code: 400,
+        message: '密码输入错误'
+      })
+    } else if (doc.password === password) {
+      res.send({
+        code: 200,
+        message: '登录成功',
+        info: {
+          token: 'SFSDFS21F32DSFSDF4234FSD4F53SD4F'
+        }
+      })
+    }
+  })
+})
 // 获取文章
 router.get('/api/blogslist', (req, res) => {
   db.getBlogs.find({}, (err, doc) => {

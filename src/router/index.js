@@ -9,7 +9,7 @@ const newsList = () => import('components/pages/newsList')
 const redact = () => import('components/pages/redact')
 const newsredact = () => import('components/pages/newsredact')
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -24,26 +24,57 @@ export default new Router({
       path: '/sys',
       name: 'sys',
       component: sys,
+      meta: {
+        requireAuth: true
+      },
       children: [
         {
           path: '/sys/blogList',
           name: 'blogList',
-          component: blogList
+          component: blogList,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/sys/newsList',
           name: 'newsList',
-          component: newsList
+          component: newsList,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/sys/blogList/redact',
-          component: redact
+          component: redact,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/sys/newsList/newsredact',
-          component: newsredact
+          component: newsredact,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     }
   ]
 })
+
+// 验证 token，存在才跳转
+router.beforeEach((to, from, next) => {
+  let login = sessionStorage.getItem('login')
+  if (to.meta.requireAuth) {
+    if (!login) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    }
+  }
+  next()
+})
+
+export default router

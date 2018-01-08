@@ -1,3 +1,5 @@
+// 登录
+export const LOGIN = 'LOGIN'
 // 获取文章列表
 export const GET_BLOGS = 'GET_BLOGS'
 // 获取公告

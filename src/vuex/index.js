@@ -9,6 +9,8 @@ import moment from 'moment'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
+    login: {},
+    msg: '',
     leftNav: [
       {
         title: '博文列表',
@@ -44,6 +46,8 @@ export default new Vuex.Store({
     redact: {}
   },
   getters: {
+    login: state => state.login,
+    msg: state => state.msg,
     leftNav: state => state.leftNav,
     blogTitle: state => state.blogTitle,
     blogList: state => state.blogList,
@@ -52,6 +56,14 @@ export default new Vuex.Store({
     redact: state => state.redact
   },
   actions: {
+    // 监控路由
+    isTab ({ commit }) {
+      commit('IS_TAB')
+    },
+    // 登录
+    logIn: ({ commit }) => {
+      commit('LOGIN')
+    },
     // 获取文章
     blogsList: ({ commit }) => {
       api.get('/api/blogslist').then(res => {
@@ -74,13 +86,34 @@ export default new Vuex.Store({
     },
     searchList: ({ commit }, key) => {
       commit('SEARCH_LIST', key)
-    },
-    // 监控路由
-    isTab ({ commit }) {
-      commit('IS_TAB')
     }
   },
   mutations: {
+    // 监控路由
+    [types.IS_TAB]: state => {
+      let list = router.currentRoute.query.list
+      let key = parseInt(router.currentRoute.query.key)
+      if (list === 'blogList') {
+        state.redact = state.blogList[key]
+      } else if (list === 'newsList') {
+        state.redact = state.newsList[key]
+      } else {
+        state.redact = {}
+      }
+    },
+    // 登录
+    [types.LOGIN] (state) {
+      api.post('/api/login', state.login).then(function (res) {
+        if (res.data.code === 200) {
+          localStorage.setItem('login', res.info.token)
+          router.push('/')
+          state.msg = ''
+        } else {
+          state.msg = res.data.message
+        }
+      })
+      state.login = {}
+    },
     // 获取文章
     [types.GET_BLOGS]: (state, res) => {
       state.blogList = res
@@ -136,18 +169,6 @@ export default new Vuex.Store({
         state.blogList = state.blogList.filter(e => e.title === key)
       } else if (name === 'newsList') {
         state.newsList = state.newsList.filter(e => e.title === key)
-      }
-    },
-    // 监控路由
-    [types.IS_TAB]: state => {
-      let list = router.currentRoute.query.list
-      let key = parseInt(router.currentRoute.query.key)
-      if (list === 'blogList') {
-        state.redact = state.blogList[key]
-      } else if (list === 'newsList') {
-        state.redact = state.newsList[key]
-      } else {
-        state.redact = {}
       }
     }
   }

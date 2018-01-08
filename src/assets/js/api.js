@@ -26,7 +26,7 @@ export default {
             ret +=
               encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
           }
-          return ret
+          return ret.slice(0, -1)
         }
       ]
     }).catch(function (err) {

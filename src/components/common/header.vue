@@ -1,9 +1,9 @@
 <template>
   <ul class="header">
+    <li>123</li>
     <li>
-      <router-link to="/sys/login">123</router-link>
+      <router-link to="/sys/login">退出</router-link>
     </li>
-    <li>退出</li>
   </ul>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     a {
       margin: 0 1vw;
       padding: 0 1vw;
-      border-right: 2px solid #ccc;
+      border-left: 2px solid #ccc;
       color: #fff;
       font-size: 0.9vw;
     }
