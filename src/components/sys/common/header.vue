@@ -1,7 +1,7 @@
 <template>
   <ul class="header">
     <li>
-      <router-link to="/">123</router-link>
+      <router-link to="/sys/login">123</router-link>
     </li>
     <li>退出</li>
   </ul>

@@ -1,15 +1,15 @@
 <template>
-  <div class="news-list">
+  <div class="blog-list">
     <add-btn></add-btn>
-    <my-tables :headline="newsTitle" :tableData="newsList" @remove="removeList" v-if="newsList.length"></my-tables>
+    <my-tables :headline="blogTitle" :tableData="blogList" v-if="blogList.length" @remove="removeList"></my-tables>
     <data-none v-else></data-none>
   </div>
 </template>
 
 <script>
-import myTables from 'components/common/tables'
-import addBtn from 'components/common/addBtn'
-import dataNone from 'components/common/dataNone'
+import myTables from 'components/sys/common/tables'
+import addBtn from 'components/sys/common/addBtn'
+import dataNone from 'components/sys/common/dataNone'
 
 import { mapGetters, mapActions } from 'vuex'
 export default {
@@ -20,8 +20,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'newsTitle',
-      'newsList'
+      'blogTitle',
+      'blogList'
     ])
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.news-list {
+.blog-list {
   padding: 1vw;
 }
 </style>
