@@ -76,7 +76,8 @@ router.post('/newsList', urlencodedParser, (req, res) => {
     }
   })
   const key = { _id: req.body._id }
-  db.getBlogs.updata(newsList, key, err => {
+  db.getBlogs.find(key, (err, docs) => {
+    console.log(docs)
     if (err) {
       res.send(err)
     } else {
