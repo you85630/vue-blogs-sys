@@ -72,6 +72,9 @@ export default new Vuex.Store({
     removeList: ({ commit }, key) => {
       commit('REMOVE_NEWS_LIST', key)
     },
+    searchList: ({ commit }, key) => {
+      commit('SEARCH_LIST', key)
+    },
     // 监控路由
     isTab ({ commit }) {
       commit('IS_TAB')
@@ -79,11 +82,11 @@ export default new Vuex.Store({
   },
   mutations: {
     // 获取文章
-    [types.GET_BLOGS] (state, res) {
+    [types.GET_BLOGS]: (state, res) => {
       state.blogList = res
     },
     // 获取新闻
-    [types.GET_NEWS] (state, res) {
+    [types.GET_NEWS]: (state, res) => {
       state.newsList = res
     },
     // 编辑新增
@@ -123,6 +126,16 @@ export default new Vuex.Store({
       } else if (name === 'newsList') {
         api.post('/api/removenewslist', state.newsList[key])
         state.newsList.splice(key, 1)
+      }
+    },
+    // 搜索
+    [types.SEARCH_LIST]: (state, key) => {
+      let name = router.currentRoute.name
+      if (name === 'blogList') {
+        console.log(key)
+        state.blogList = state.blogList.filter(e => e.title === key)
+      } else if (name === 'newsList') {
+        state.newsList = state.newsList.filter(e => e.title === key)
       }
     },
     // 监控路由

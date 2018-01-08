@@ -10,3 +10,5 @@ export const PUSH_LIST = 'PUSH_LIST'
 export const REMOVE_NEWS_LIST = 'REMOVE_NEWS_LIST'
 // 删除文章
 export const REMOVE_BLOGS_LIST = 'REMOVE_BLOGS_LIST'
+// 搜索
+export const SEARCH_LIST = 'SEARCH_LIST'
