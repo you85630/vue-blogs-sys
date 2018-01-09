@@ -105,8 +105,8 @@ export default new Vuex.Store({
     [types.LOGIN] (state) {
       api.post('/api/login', state.login).then(function (res) {
         if (res.data.code === 200) {
-          localStorage.setItem('login', res.info.token)
-          router.push('/')
+          localStorage.setItem('login', res.data.info.token)
+          router.push('/sys')
           state.msg = ''
         } else {
           state.msg = res.data.message

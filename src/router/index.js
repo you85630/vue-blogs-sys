@@ -10,6 +10,7 @@ const redact = () => import('components/pages/redact')
 const newsredact = () => import('components/pages/newsredact')
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -65,11 +66,11 @@ const router = new Router({
 
 // 验证 token，存在才跳转
 router.beforeEach((to, from, next) => {
-  let login = sessionStorage.getItem('login')
+  let login = localStorage.getItem('login')
   if (to.meta.requireAuth) {
     if (!login) {
       next({
-        path: '/login',
+        path: '/sys/login',
         query: { redirect: to.fullPath }
       })
     }

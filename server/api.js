@@ -11,9 +11,7 @@ const urlencodedParser = bodyParser.urlencoded({
 // 登录
 router.post('/api/login', urlencodedParser, (req, res) => {
   const { username, password } = req.body
-  db.getLogin.findOne({ username }, password, (err, doc) => {
-    console.log(password)
-    console.log(doc.password)
+  db.getLogin.findOne({ username, password }, (err, doc) => {
     if (err) {
       res.send(err)
     }

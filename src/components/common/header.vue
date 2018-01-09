@@ -1,7 +1,7 @@
 <template>
   <ul class="header">
     <li>123</li>
-    <li>
+    <li @click="logout">
       <router-link to="/sys/login">退出</router-link>
     </li>
   </ul>
@@ -9,7 +9,11 @@
 
 <script>
 export default {
-
+  methods: {
+    logout () {
+      localStorage.clear()
+    }
+  }
 }
 </script>
 
