@@ -66,19 +66,11 @@ export default new Vuex.Store({
     },
     // 获取文章
     blogsList: ({ commit }) => {
-      api
-        .get('/api/blogslist?t=' + moment().format('YYYYMMDDHHmm'))
-        .then(res => {
-          commit('GET_BLOGS', res.data)
-        })
+      commit('GET_BLOGS')
     },
     // 获取新闻
     newsList: ({ commit }) => {
-      api
-        .get('/api/newslist?t=' + moment().format('YYYYMMDDHHmm'))
-        .then(res => {
-          commit('GET_NEWS', res.data)
-        })
+      commit('GET_NEWS')
     },
     // 编辑新增
     pushList: ({ commit }) => {
@@ -120,11 +112,19 @@ export default new Vuex.Store({
     },
     // 获取文章
     [types.GET_BLOGS]: (state, res) => {
-      state.blogList = res
+      api
+        .get('/api/blogslist?t=' + moment().format('YYYYMMDDHHmm'))
+        .then(res => {
+          state.blogList = res.data
+        })
     },
     // 获取新闻
     [types.GET_NEWS]: (state, res) => {
-      state.newsList = res
+      api
+        .get('/api/newslist?t=' + moment().format('YYYYMMDDHHmm'))
+        .then(res => {
+          state.newsList = res.data
+        })
     },
     // 编辑新增
     [types.PUSH_LIST]: state => {
@@ -169,10 +169,25 @@ export default new Vuex.Store({
     [types.SEARCH_LIST]: (state, key) => {
       let name = router.currentRoute.name
       if (name === 'blogList') {
-        console.log(key)
-        state.blogList = state.blogList.filter(e => e.title === key)
+        if (key === '') {
+          api
+            .get('/api/blogslist?t=' + moment().format('YYYYMMDDHHmm'))
+            .then(res => {
+              state.newsList = res.data
+            })
+        } else {
+          state.blogList = state.blogList.filter(e => e.title === key)
+        }
       } else if (name === 'newsList') {
-        state.newsList = state.newsList.filter(e => e.title === key)
+        if (key === '') {
+          api
+            .get('/api/newslist?t=' + moment().format('YYYYMMDDHHmm'))
+            .then(res => {
+              state.newsList = res.data
+            })
+        } else {
+          state.newsList = state.newsList.filter(e => e.title === key)
+        }
       }
     }
   }
