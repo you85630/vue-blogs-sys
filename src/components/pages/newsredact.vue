@@ -72,7 +72,7 @@ ul {
     input,
     textarea {
       box-sizing: border-box;
-      padding: 0.6% 1%;
+      padding: 0.6vw 1vw;
       width: 80%;
       border: 1px solid #eee;
       border-radius: 2px;

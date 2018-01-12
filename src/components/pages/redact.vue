@@ -11,6 +11,10 @@
         <input type="text" v-model="redact.label" name="label">
       </li>
       <li>
+        <p>时间：</p>
+        <time-input name="time"></time-input>
+      </li>
+      <li>
         <p>封面：</p>
         <img-input :imgVal="redact.cover" @imgInput="addcover" name="cover"></img-input>
       </li>
@@ -32,6 +36,7 @@
 
 <script>
 import backBtn from 'components/modules/backBtn'
+import timeInput from 'components/modules/timeInput'
 import imgInput from 'components/modules/imgInput'
 
 import { mapActions, mapGetters } from 'vuex'
@@ -39,6 +44,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     backBtn,
+    timeInput,
     imgInput
   },
   computed: {
@@ -76,14 +82,14 @@ ul {
     margin-bottom: 1.2vw;
     p {
       width: 20%;
+      text-align: center;
       font-size: 1.2vw;
       line-height: 2;
-      text-align: center;
     }
     input,
     textarea {
       box-sizing: border-box;
-      padding: 0.6% 1%;
+      padding: 0.6vw 1vw;
       width: 80%;
       border: 1px solid #eee;
       border-radius: 2px;

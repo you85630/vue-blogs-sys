@@ -83,7 +83,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     width: 10vw;
     height: 10vw;
     opacity: 0;
@@ -94,6 +94,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 10vw;
   height: 10vw;
   background-color: #f5f5f5;
