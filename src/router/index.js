@@ -3,6 +3,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const login = () => import('views/login')
+const notfound = () => import('views/notfound')
 const sys = () => import('views/index')
 const blogList = () => import('components/pages/blogList')
 const newsList = () => import('components/pages/newsList')
@@ -14,6 +15,10 @@ const router = new Router({
     {
       path: '/',
       redirect: '/sys'
+    },
+    {
+      path: '*',
+      component: notfound
     },
     {
       path: '/sys/login',
