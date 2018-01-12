@@ -66,15 +66,19 @@ export default new Vuex.Store({
     },
     // 获取文章
     blogsList: ({ commit }) => {
-      api.get('/api/blogslist').then(res => {
-        commit('GET_BLOGS', res.data)
-      })
+      api
+        .get('/api/blogslist?t=' + moment().format('YYYYMMDDHHmm'))
+        .then(res => {
+          commit('GET_BLOGS', res.data)
+        })
     },
     // 获取新闻
     newsList: ({ commit }) => {
-      api.get('/api/newslist').then(res => {
-        commit('GET_NEWS', res.data)
-      })
+      api
+        .get('/api/newslist?t=' + moment().format('YYYYMMDDHHmm'))
+        .then(res => {
+          commit('GET_NEWS', res.data)
+        })
     },
     // 编辑新增
     pushList: ({ commit }) => {
