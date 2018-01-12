@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import myTables from 'components/common/tables'
-import addBtn from 'components/common/addBtn'
-import mySearch from 'components/common/search'
-import dataNone from 'components/common/dataNone'
+import myTables from 'components/modules/tables'
+import addBtn from 'components/modules/addBtn'
+import mySearch from 'components/modules/search'
+import dataNone from 'components/modules/dataNone'
 
 import { mapGetters, mapActions } from 'vuex'
 export default {

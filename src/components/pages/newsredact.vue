@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import backBtn from 'components/common/backBtn'
-import imgInput from 'components/common/imgInput'
+import backBtn from 'components/modules/backBtn'
+import imgInput from 'components/modules/imgInput'
 
 import { mapActions, mapGetters } from 'vuex'
 
