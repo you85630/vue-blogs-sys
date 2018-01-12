@@ -10,7 +10,6 @@ const redact = () => import('components/pages/redact')
 const newsredact = () => import('components/pages/newsredact')
 
 const router = new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
