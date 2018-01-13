@@ -40,55 +40,34 @@
       </div>
       <div class="month-show" v-if="month">
         <div class="month-title">
-          <button>
+          <button @click="getPrevYear">
             <i class="fa fa-angle-double-left"></i>
           </button>
           <p>
-            <span>2000 年</span>
+            <span @click="getYear">{{nowTime.year}} 年</span>
           </p>
-          <button>
+          <button @click="getNextYear">
             <i class="fa fa-angle-double-right"></i>
           </button>
         </div>
         <dl>
-          <dd>一月</dd>
-          <dd>二月</dd>
-          <dd>三月</dd>
-          <dd>四月</dd>
-          <dd>五月</dd>
-          <dd>六月</dd>
-          <dd>七月</dd>
-          <dd>八月</dd>
-          <dd>九月</dd>
-          <dd>十月</dd>
-          <dd>十一月</dd>
-          <dd>十二月</dd>
+          <dd @click="getDay" v-for="(li,index) in monthList" :key="li.index" :class="{active:index+1===nowTime.month}">{{li}}</dd>
         </dl>
       </div>
       <div class="year-show" v-if="year">
         <div class="year-title">
-          <button>
+          <button @click="prevScreenYear">
             <i class="fa fa-angle-double-left"></i>
           </button>
           <p>
-            <span>2000 年</span> -
-            <span>2009 年</span>
+            <span>{{screenYear.first}} 年 - {{screenYear.last}} 年</span>
           </p>
-          <button>
+          <button @click="nextScreenYear">
             <i class="fa fa-angle-double-right"></i>
           </button>
         </div>
         <dl>
-          <dd class="active">2000</dd>
-          <dd>2001</dd>
-          <dd>2002</dd>
-          <dd>2003</dd>
-          <dd>2004</dd>
-          <dd>2005</dd>
-          <dd>2006</dd>
-          <dd>2007</dd>
-          <dd>2008</dd>
-          <dd>2009</dd>
+          <dd v-for="(li,index) in intervalYear" :key="li.index" :class="{active:index===screenYear.now}" @click="getMonth">{{li}}</dd>
         </dl>
       </div>
     </div>
@@ -105,7 +84,10 @@ export default {
       nowTime: {},
       nowMonth: [],
       prevMonth: [],
-      nextMonth: []
+      nextMonth: [],
+      screenYear: {},
+      intervalYear: [],
+      monthList: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
     }
   },
   methods: {
@@ -135,17 +117,37 @@ export default {
         this.nowTime.month = this.nowTime.month + 1
       }
     },
-    // 选取年份
+    // 打开年份
     getYear () {
       this.year = true
       this.month = false
       this.day = false
     },
-    // 选取月份
+    // 打开月份
     getMonth () {
       this.year = false
       this.month = true
       this.day = false
+    },
+    // 打开日期
+    getDay () {
+      this.year = false
+      this.month = false
+      this.day = true
+    },
+    // 年份区间选择-前10年
+    prevScreenYear () {
+      this.screenYear = {
+        first: this.screenYear.first - 10,
+        last: this.screenYear.last - 10
+      }
+    },
+    // 年份区间选择-后10年
+    nextScreenYear () {
+      this.screenYear = {
+        first: this.screenYear.first + 10,
+        last: this.screenYear.last + 10
+      }
     }
   },
   created () {
@@ -156,53 +158,22 @@ export default {
       month: date.getMonth() + 1,
       day: date.getDate()
     }
-    // 默认日历,当月天数
-    let year = this.nowTime.year
-    let month = this.nowTime.month
-    // 当前月
-    let now = new Date(year, month, 0)
-    let daycount = now.getDate()
-    for (let i = 1; i <= daycount; i++) {
-      this.nowMonth.push(i)
-    }
-    // 上月天数
-    let prevyear = 0
-    let prevmonth = 0
-    if (month === 1) {
-      prevyear = year - 1
-      prevmonth = 12
+    // 默认年筛选
+    let nowYear
+    if (this.nowTime.year % 10 === 0) {
+      nowYear = this.nowTime.year
     } else {
-      prevyear = year
-      prevmonth = month - 1
+      nowYear = this.nowTime.year - this.nowTime.year % 10
     }
-    date = new Date(date.setDate(1))
-    let prev = new Date(prevyear, prevmonth, 0)
-    let prevcount = prev.getDate()
-    for (let i = 1; i <= prevcount; i++) {
-      this.prevMonth.push(i)
+    this.screenYear = {
+      first: nowYear,
+      last: nowYear + 9,
+      now: this.nowTime.year % 10
     }
-    this.prevMonth = this.prevMonth.slice(-date.getDay())
-
-    // 下月天数
-    let nextyear = 0
-    let nextmonth = 0
-    if (month === 12) {
-      nextyear = year + 1
-      nextmonth = 1
-    } else {
-      nextyear = year
-      nextmonth = month + 1
-    }
-    let next = new Date(nextyear, nextmonth, 0)
-    let nextcount = next.getDate()
-    for (let i = 1; i <= nextcount; i++) {
-      this.nextMonth.push(i)
-    }
-    this.nextMonth = this.nextMonth.slice(0, 34 - this.nowMonth.length)
   },
   watch: {
     nowTime: {
-      handler (val, oldVal) {
+      handler (val) {
         let year = val.year
         let month = val.month
         // 切换后当月天数
@@ -270,6 +241,30 @@ export default {
           val.day = date.getDate()
         } else {
           val.day = ''
+        }
+      },
+      deep: true
+    },
+    screenYear: {
+      handler (val) {
+        let year = val.first
+        // 默认年区间
+        let yearList = []
+        for (let i = 0; i < 10; i++) {
+          year = year + 1
+          yearList.push(year - 1)
+        }
+        this.intervalYear = yearList
+
+        // 默认年份,当前年份
+        let yearNow = new Date().getFullYear()
+        let Index = this.intervalYear.findIndex(e => e === yearNow)
+        let nowYear = this.intervalYear[Index]
+        // 判断当前时间
+        if (yearNow === nowYear) {
+          val.now = Index
+        } else {
+          val.now = ''
         }
       },
       deep: true
@@ -348,7 +343,7 @@ export default {
       margin: 0 11px;
     }
     p {
-      padding: 0 20px;
+      padding: 0 32px;
       span {
         display: inline-block;
         width: 60px;
