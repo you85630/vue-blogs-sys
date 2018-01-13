@@ -34,7 +34,7 @@
         </dl>
         <dl>
           <dd class="none" v-for="li in prevMonth" :key="li.index">{{li}}</dd>
-          <dd v-for="(li,index) in nowMonth" :key="li.index" :class="{active:index+1===nowDay}">{{li}}</dd>
+          <dd v-for="(li,index) in nowMonth" :key="li.index" :class="{active:index+1===nowTime.day}">{{li}}</dd>
           <dd class="none" v-for="li in nextMonth" :key="li.index">{{li}}</dd>
         </dl>
       </div>
@@ -96,18 +96,16 @@
 </template>
 
 <script>
-import moment from 'moment'
 export default {
   data () {
     return {
       day: true,
       month: false,
       year: false,
-      nowDay: 0,
       nowTime: {},
       nowMonth: [],
-      prevMonth: [1, 2, 3, 4, 5],
-      nextMonth: [1, 2, 3, 4]
+      prevMonth: [],
+      nextMonth: []
     }
   },
   methods: {
@@ -123,21 +121,29 @@ export default {
     }
   },
   created () {
-    // 默认日期
-    this.nowTime.year = moment().format('YYYY')
-    this.nowTime.month = moment().format('MM')
-    // 当前日期
-    this.nowDay = parseInt(moment().format('DD'))
+    let date = new Date()
+    // 默认日期,当前日期
+    this.nowTime = {
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      day: date.getDate()
+    }
+
     // 默认日历
-    let year = moment().format('YYYY')
-    let month = moment().format('MM')
-    var d = new Date(year, month, 0)
-    let daycount = d.getDate()
-    var dayArry = []
-    for (var k = 1; k <= daycount; k++) {
-      dayArry.push(k)
+    let year = date.getFullYear()
+    let month = date.getMonth()
+
+    let now = new Date(year, month, 0)
+    let daycount = now.getDate()
+    let dayArry = []
+    for (let i = 1; i <= daycount; i++) {
+      dayArry.push(i)
     }
     this.nowMonth = dayArry
+
+    date = new Date(date.setDate(1))
+    let weekday = date.getDay()
+    console.log(weekday)
   }
 }
 </script>
