@@ -1,9 +1,9 @@
 <template>
   <div class="time-input">
     <div class="time-show">
-      <i class="fa fa-calendar"></i><input type="text">
+      <i class="fa fa-calendar"></i><input type="text" v-model="nowTime.year+'-'+nowTime.month+'-'+nowTime.day" @click="showTimeCard">
     </div>
-    <div class="time-card">
+    <div class="time-card" v-if="timeCard">
       <div class="day-show" v-if="day">
         <div class="day-title">
           <button @click="getPrevYear">
@@ -13,8 +13,8 @@
             <i class="fa fa-angle-left"></i>
           </button>
           <p>
-            <span @click="getYear">{{nowTime.year}} 年</span>
-            <span @click="getMonth">{{nowTime.month}} 月</span>
+            <span @click="openYear">{{nowTime.year}} 年</span>
+            <span @click="getYear(nowTime.month)">{{nowTime.month}} 月</span>
           </p>
           <button class="gap" @click="getNextMonth">
             <i class="fa fa-angle-right"></i>
@@ -34,7 +34,7 @@
         </dl>
         <dl>
           <dd class="none" v-for="li in prevMonth" :key="li.index">{{li}}</dd>
-          <dd v-for="(li,index) in nowMonth" :key="li.index" :class="{active:index+1===nowTime.day}">{{li}}</dd>
+          <dd v-for="(li,index) in nowMonth" :key="li.index" :class="{active:index+1===nowTime.day}" @click="getDay(index)">{{li}}</dd>
           <dd class="none" v-for="li in nextMonth" :key="li.index">{{li}}</dd>
         </dl>
       </div>
@@ -44,14 +44,14 @@
             <i class="fa fa-angle-double-left"></i>
           </button>
           <p>
-            <span @click="getYear">{{nowTime.year}} 年</span>
+            <span @click="openYear">{{nowTime.year}} 年</span>
           </p>
           <button @click="getNextYear">
             <i class="fa fa-angle-double-right"></i>
           </button>
         </div>
         <dl>
-          <dd @click="getDay" v-for="(li,index) in monthList" :key="li.index" :class="{active:index+1===nowTime.month}">{{li}}</dd>
+          <dd @click="getMonth(index)" v-for="(li,index) in monthList" :key="li.index" :class="{active:index+1===nowTime.month}">{{li}}</dd>
         </dl>
       </div>
       <div class="year-show" v-if="year">
@@ -67,7 +67,7 @@
           </button>
         </div>
         <dl>
-          <dd v-for="(li,index) in intervalYear" :key="li.index" :class="{active:index===screenYear.now}" @click="getMonth">{{li}}</dd>
+          <dd v-for="(li,index) in intervalYear" :key="li.index" :class="{active:index===screenYear.now}" @click="getYear(li)">{{li}}</dd>
         </dl>
       </div>
     </div>
@@ -78,7 +78,8 @@
 export default {
   data () {
     return {
-      day: true,
+      timeCard: false,
+      day: false,
       month: false,
       year: false,
       nowTime: {},
@@ -91,6 +92,10 @@ export default {
     }
   },
   methods: {
+    showTimeCard () {
+      this.timeCard = true
+      this.day = true
+    },
     // 上一年
     getPrevYear () {
       this.nowTime.year = this.nowTime.year - 1
@@ -118,22 +123,32 @@ export default {
       }
     },
     // 打开年份
-    getYear () {
+    openYear () {
       this.year = true
       this.month = false
       this.day = false
     },
-    // 打开月份
-    getMonth () {
+    // 获取年
+    getYear (key) {
       this.year = false
       this.month = true
       this.day = false
+      this.nowTime.year = key
     },
-    // 打开日期
-    getDay () {
+    // 获取月
+    getMonth (key) {
       this.year = false
       this.month = false
       this.day = true
+      this.nowTime.month = key + 1
+    },
+    // 获取日
+    getDay (key) {
+      this.year = false
+      this.month = false
+      this.day = false
+      this.timeCard = false
+      this.nowTime.day = key + 1
     },
     // 年份区间选择-前10年
     prevScreenYear () {
@@ -167,8 +182,7 @@ export default {
     }
     this.screenYear = {
       first: nowYear,
-      last: nowYear + 9,
-      now: this.nowTime.year % 10
+      last: nowYear + 9
     }
   },
   watch: {
@@ -238,9 +252,9 @@ export default {
         }
         // 判断当前时间
         if (nowTime.year === year & nowTime.month === month) {
-          val.day = date.getDate()
+          this.nowTime.day = date.getDate()
         } else {
-          val.day = ''
+          this.nowTime.day = ''
         }
       },
       deep: true
