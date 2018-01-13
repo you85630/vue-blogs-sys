@@ -6,20 +6,20 @@
     <div class="time-card">
       <div class="day-show" v-if="day">
         <div class="day-title">
-          <button>
+          <button @click="getPrevYear">
             <i class="fa fa-angle-double-left"></i>
           </button>
-          <button class="gap">
+          <button class="gap" @click="getPrevMonth">
             <i class="fa fa-angle-left"></i>
           </button>
           <p>
             <span @click="getYear">{{nowTime.year}} 年</span>
             <span @click="getMonth">{{nowTime.month}} 月</span>
           </p>
-          <button class="gap">
+          <button class="gap" @click="getNextMonth">
             <i class="fa fa-angle-right"></i>
           </button>
-          <button>
+          <button @click="getNextYear">
             <i class="fa fa-angle-double-right"></i>
           </button>
         </div>
@@ -109,11 +109,39 @@ export default {
     }
   },
   methods: {
+    // 上一年
+    getPrevYear () {
+      this.nowTime.year = this.nowTime.year - 1
+    },
+    // 上一月
+    getPrevMonth () {
+      if (this.nowTime.month === 1) {
+        this.nowTime.month = 12
+        this.nowTime.year = this.nowTime.year - 1
+      } else {
+        this.nowTime.month = this.nowTime.month - 1
+      }
+    },
+    // 下一年
+    getNextYear () {
+      this.nowTime.year = this.nowTime.year + 1
+    },
+    // 下一月
+    getNextMonth () {
+      if (this.nowTime.month === 12) {
+        this.nowTime.month = 1
+        this.nowTime.year = this.nowTime.year + 1
+      } else {
+        this.nowTime.month = this.nowTime.month + 1
+      }
+    },
+    // 选取年份
     getYear () {
       this.year = true
       this.month = false
       this.day = false
     },
+    // 选取月份
     getMonth () {
       this.year = false
       this.month = true
@@ -125,25 +153,119 @@ export default {
     // 默认日期,当前日期
     this.nowTime = {
       year: date.getFullYear(),
-      month: date.getMonth(),
+      month: date.getMonth() + 1,
       day: date.getDate()
     }
-
-    // 默认日历
-    let year = date.getFullYear()
-    let month = date.getMonth()
-
+    // 默认日历,当月天数
+    let year = this.nowTime.year
+    let month = this.nowTime.month
+    // 当前月
     let now = new Date(year, month, 0)
     let daycount = now.getDate()
-    let dayArry = []
     for (let i = 1; i <= daycount; i++) {
-      dayArry.push(i)
+      this.nowMonth.push(i)
     }
-    this.nowMonth = dayArry
-
+    // 上月天数
+    let prevyear = 0
+    let prevmonth = 0
+    if (month === 1) {
+      prevyear = year - 1
+      prevmonth = 12
+    } else {
+      prevyear = year
+      prevmonth = month - 1
+    }
     date = new Date(date.setDate(1))
-    let weekday = date.getDay()
-    console.log(weekday)
+    let prev = new Date(prevyear, prevmonth, 0)
+    let prevcount = prev.getDate()
+    for (let i = 1; i <= prevcount; i++) {
+      this.prevMonth.push(i)
+    }
+    this.prevMonth = this.prevMonth.slice(-date.getDay())
+
+    // 下月天数
+    let nextyear = 0
+    let nextmonth = 0
+    if (month === 12) {
+      nextyear = year + 1
+      nextmonth = 1
+    } else {
+      nextyear = year
+      nextmonth = month + 1
+    }
+    let next = new Date(nextyear, nextmonth, 0)
+    let nextcount = next.getDate()
+    for (let i = 1; i <= nextcount; i++) {
+      this.nextMonth.push(i)
+    }
+    this.nextMonth = this.nextMonth.slice(0, 34 - this.nowMonth.length)
+  },
+  watch: {
+    nowTime: {
+      handler (val) {
+        let year = val.year
+        let month = val.month
+        // 切换后当月天数
+        let now = new Date(year, month, 0)
+        let daycount = now.getDate()
+        let nowList = []
+        for (let i = 1; i <= daycount; i++) {
+          nowList.push(i)
+        }
+        this.nowMonth = nowList
+        // 切换后上月天数
+        let prevyear = 0
+        let prevmonth = 0
+        if (month === 1) {
+          prevyear = year - 1
+          prevmonth = 12
+        } else {
+          prevyear = year
+          prevmonth = month - 1
+        }
+        let nowWeek = new Date(now.setDate(1))
+        let prev = new Date(prevyear, prevmonth, 0)
+        let prevcount = prev.getDate()
+        let prevList = []
+        for (let i = 1; i <= prevcount; i++) {
+          prevList.push(i)
+        }
+        let week = nowWeek.getDay()
+        if (week === 0) {
+          this.prevMonth = []
+        } else {
+          this.prevMonth = prevList.slice(-week)
+        }
+        // 切换后下月天数
+        let nextyear = 0
+        let nextmonth = 0
+        if (month === 12) {
+          nextyear = year + 1
+          nextmonth = 1
+        } else {
+          nextyear = year
+          nextmonth = month + 1
+        }
+        let nextList = []
+        let next = new Date(nextyear, nextmonth, 0)
+        let nextcount = next.getDate()
+        for (let i = 1; i <= nextcount; i++) {
+          nextList.push(i)
+        }
+        let nextday = 35 - this.prevMonth.length - this.nowMonth.length
+        if (nextday < 0) {
+          this.nextMonth = nextList.slice(0, nextday + 7)
+        } else {
+          this.nextMonth = nextList.slice(0, nextday)
+        }
+
+        console.log(prevyear + '-' + prevmonth + '-' + prevcount)
+        console.log(year + '-' + month + '-' + nowList.length)
+        console.log(nextyear + '-' + nextmonth + '-' + nextcount)
+        console.log('---------------------')
+      },
+      deep: true
+    }
   }
 }
 </script>
@@ -200,6 +322,7 @@ export default {
 .day-show {
   .day-title {
     padding-bottom: 10px;
+    text-align: center;
     button,
     p {
       display: inline-block;
@@ -217,9 +340,10 @@ export default {
       margin: 0 11px;
     }
     p {
-      padding: 0 30px;
+      padding: 0 20px;
       span {
-        margin: 0 5px;
+        display: inline-block;
+        width: 60px;
         font-size: 16px;
         cursor: pointer;
         &:hover {
