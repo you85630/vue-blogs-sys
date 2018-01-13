@@ -1,7 +1,7 @@
 <template>
   <div class="time-input">
     <div class="time-show">
-      <i class="fa fa-calendar"></i><input type="text" v-model="nowTime.year+'-'+nowTime.month+'-'+nowTime.day" @click="showTimeCard">
+      <i class="fa fa-calendar"></i><input type="text" v-model="timeShow" @click="showTimeCard">
     </div>
     <div class="time-card" v-if="timeCard">
       <div class="day-show" v-if="day">
@@ -82,6 +82,7 @@ export default {
       day: false,
       month: false,
       year: false,
+      timeShow: '',
       nowTime: {},
       nowMonth: [],
       prevMonth: [],
@@ -149,6 +150,7 @@ export default {
       this.day = false
       this.timeCard = false
       this.nowTime.day = key + 1
+      this.timeShow = this.nowTime.year + '-' + this.nowTime.month + '-' + this.nowTime.day
     },
     // 年份区间选择-前10年
     prevScreenYear () {
