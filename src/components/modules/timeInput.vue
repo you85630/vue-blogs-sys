@@ -202,7 +202,7 @@ export default {
   },
   watch: {
     nowTime: {
-      handler (val) {
+      handler (val, oldVal) {
         let year = val.year
         let month = val.month
         // 切换后当月天数
@@ -259,10 +259,18 @@ export default {
           this.nextMonth = nextList.slice(0, nextday)
         }
 
-        console.log(prevyear + '-' + prevmonth + '-' + prevcount)
-        console.log(year + '-' + month + '-' + nowList.length)
-        console.log(nextyear + '-' + nextmonth + '-' + nextcount)
-        console.log('---------------------')
+        let date = new Date()
+        // 默认日期,当前日期
+        let nowTime = {
+          year: date.getFullYear(),
+          month: date.getMonth() + 1
+        }
+        // 判断当前时间
+        if (nowTime.year === year & nowTime.month === month) {
+          val.day = date.getDate()
+        } else {
+          val.day = ''
+        }
       },
       deep: true
     }
