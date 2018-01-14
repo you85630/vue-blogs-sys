@@ -33,9 +33,9 @@
           <dt>六</dt>
         </dl>
         <dl>
-          <dd class="none" v-for="li in prevMonth" :key="li.index">{{li}}</dd>
-          <dd v-for="(li,index) in nowMonth" :key="li.index" :class="{active:index+1===nowTime.day}" @click="getDay(index)">{{li}}</dd>
-          <dd class="none" v-for="li in nextMonth" :key="li.index">{{li}}</dd>
+          <dd class="none" v-for="li in prevMonth">{{li}}</dd>
+          <dd v-for="(li,index) in nowMonth" :class="{active:index+1===nowTime.day}" @click="getDay(index)">{{li}}</dd>
+          <dd class="none" v-for="li in nextMonth">{{li}}</dd>
         </dl>
       </div>
       <div class="month-show" v-if="month">
@@ -51,7 +51,7 @@
           </button>
         </div>
         <dl>
-          <dd @click="getMonth(index)" v-for="(li,index) in monthList" :key="li.index" :class="{active:index+1===nowTime.month}">{{li}}</dd>
+          <dd v-for="(li,index) in monthList" :class="{active:index+1===nowTime.month}" @click="getMonth(index)">{{li}}</dd>
         </dl>
       </div>
       <div class="year-show" v-if="year">
@@ -67,7 +67,7 @@
           </button>
         </div>
         <dl>
-          <dd v-for="(li,index) in intervalYear" :key="li.index" :class="{active:index===screenYear.now}" @click="getYear(li)">{{li}}</dd>
+          <dd v-for="(li,index) in intervalYear" :class="{active:index===screenYear.now}" @click="getYear(li)">{{li}}</dd>
         </dl>
       </div>
     </div>

@@ -9,7 +9,7 @@
       <dt>操作</dt>
     </dl>
     <div class="table-li">
-      <dl class="main" v-for="(dl,index) in tableData" :key="dl.index">
+      <dl class="main" v-for="(dl,index) in tableData">
         <dd>{{index+1}}</dd>
         <dd class="name">{{dl.title}}</dd>
         <dd class="label">{{dl.label}}</dd>

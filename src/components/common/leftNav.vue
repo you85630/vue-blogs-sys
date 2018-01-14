@@ -5,7 +5,7 @@
     </div>
     <div class="nav">
       <ul class="container">
-        <li v-for="(li,index) in leftNav" :key="li.index">
+        <li v-for="(li,index) in leftNav">
           <router-link :to="li.link">
             <i class="fa" :class="li.icon"></i>{{li.title}}</router-link>
         </li>
