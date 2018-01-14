@@ -11,12 +11,16 @@
         <input type="text" v-model="redact.label" name="label">
       </li>
       <li>
-        <p>时间：</p>
+        <p>日期：</p>
         <time-input name="time"></time-input>
       </li>
       <li>
         <p>封面：</p>
         <img-input :imgVal="redact.cover" @imgInput="addcover" name="cover"></img-input>
+      </li>
+      <li>
+        <p>是否展示封面：</p>
+        <btn-input></btn-input>
       </li>
       <li>
         <p>简介：</p>
@@ -38,6 +42,7 @@
 import backBtn from 'components/modules/backBtn'
 import timeInput from 'components/modules/timeInput'
 import imgInput from 'components/modules/imgInput'
+import btnInput from 'components/modules/btnInput'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -45,7 +50,8 @@ export default {
   components: {
     backBtn,
     timeInput,
-    imgInput
+    imgInput,
+    btnInput
   },
   computed: {
     ...mapGetters([
@@ -109,7 +115,7 @@ ul {
     }
   }
   .markdown {
-    height: 40vh;
+    height: 26vh;
   }
 }
 </style>
