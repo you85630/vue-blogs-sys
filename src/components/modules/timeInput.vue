@@ -14,7 +14,7 @@
           </button>
           <p>
             <span @click="openYear">{{nowTime.year}} 年</span>
-            <span @click="getYear(nowTime.month)">{{nowTime.month}} 月</span>
+            <span @click="getYear(nowTime.year)">{{nowTime.month}} 月</span>
           </p>
           <button class="gap" @click="getNextMonth">
             <i class="fa fa-angle-right"></i>
@@ -100,6 +100,7 @@ export default {
     // 上一年
     getPrevYear () {
       this.nowTime.year = this.nowTime.year - 1
+      this.nowTime.day = ''
     },
     // 上一月
     getPrevMonth () {
@@ -109,10 +110,12 @@ export default {
       } else {
         this.nowTime.month = this.nowTime.month - 1
       }
+      this.nowTime.day = ''
     },
     // 下一年
     getNextYear () {
       this.nowTime.year = this.nowTime.year + 1
+      this.nowTime.day = ''
     },
     // 下一月
     getNextMonth () {
@@ -122,6 +125,7 @@ export default {
       } else {
         this.nowTime.month = this.nowTime.month + 1
       }
+      this.nowTime.day = ''
     },
     // 打开年份
     openYear () {
@@ -246,17 +250,9 @@ export default {
           this.nextMonth = nextList.slice(0, nextday)
         }
 
-        let date = new Date()
-        // 默认日期,当前日期
-        let nowTime = {
-          year: date.getFullYear(),
-          month: date.getMonth() + 1
-        }
         // 判断当前时间
-        if (nowTime.year === year & nowTime.month === month) {
-          this.nowTime.day = date.getDate()
-        } else {
-          this.nowTime.day = ''
+        if (!this.timeShow) {
+          val.day = this.nowTime.day
         }
       },
       deep: true
